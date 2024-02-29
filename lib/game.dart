@@ -2,10 +2,13 @@ import 'dart:html';
 
 import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
+import 'package:flame/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:green_oasis/components/garden.dart';
 import 'package:green_oasis/components/house.dart';
+import 'package:green_oasis/components/item-card.dart';
 import 'package:green_oasis/components/plant.dart';
 import 'package:green_oasis/helpers/helpers.dart';
 
@@ -24,26 +27,42 @@ class MyGame extends FlameGame {
   
   @override
   Color backgroundColor() => const Color(0x00000000);
-    // Load sprites
-    // final houseSprite = await Sprite.load('house.png');
-
-    // // Create and position sprites
-    // house = SpriteComponent(
-    //   sprite: houseSprite,
-    //   size: Vector2(200, 150),
-    //   position: Vector2(size.x / 2, size.y - houseSprite.originalSize.y),
-    // );
-
     camera.viewfinder.zoom = zoom;
 
-    // Adds a black background to the viewport  
-    // await add(_Background(size: screenSize)..positionType = PositionType.viewport);  
     // Add sprites to the game
     add(House1());
     add(Soil());
     add(Plant1());
 
+
+    // addAll([
+    //   AlignComponent(
+    //     child: CircleComponent(
+    //       radius: 40,
+    //       children: [
+    //        TextComponent(text: "Let's build a sustainable home"),
+    //         SizeEffect.by(
+    //           Vector2.all(25),
+    //           EffectController(
+    //             infinite: true,
+    //             duration: 0.75,
+    //             reverseDuration: 0.5,
+    //           ),
+    //         ),
+    //       ],
+
+    //     ),
+    //     alignment: Anchor.center,
+        
+    //   ),
+    //   // AlignComponent(
+    //   //   child: CircleComponent(radius: 30),
+    //   //   alignment: Anchor.topCenter,
+    //   // ),
+    // ]);
   }
+
+  
 }
 
 // Helper component that paints a black background  
@@ -66,7 +85,7 @@ class GreenOasis extends StatelessWidget {
     return MaterialApp(
       title: 'Green Oasis',
       home: GameWidget(game: MyGame(zoom: 100)),
-      // home: GameWidget(game: DragEventsGame()),
+      
     );
   }
 }

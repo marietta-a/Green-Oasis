@@ -86,3 +86,102 @@ class Plant2 extends SpriteComponent with DragCallbacks{
     position += event.localDelta;
   }
 }
+
+class Flower extends SpriteComponent with DragCallbacks{
+   Flower(): super(size: plantSize, position: plantPosition);
+
+   @override
+   Future<void> onLoad() async {
+       sprite = await Sprite.load("flower.png");
+   }
+   
+  // @override
+  // bool debugMode = true;
+
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    debugColor = isDragged ? Colors.greenAccent : Colors.purple;
+  }
+
+  @override
+  void onDragUpdate(DragUpdateEvent event) {
+    position += event.localDelta;
+  }
+}
+
+
+class Flower1 extends SpriteComponent with DragCallbacks{
+   Flower1(): super(size: plantSize, position: plantPosition);
+
+   @override
+   Future<void> onLoad() async {
+       sprite = await Sprite.load("flower1.png");
+   }
+   
+  // @override
+  // bool debugMode = true;
+
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    debugColor = isDragged ? Colors.greenAccent : Colors.purple;
+  }
+
+  @override
+  void onDragUpdate(DragUpdateEvent event) {
+    position += event.localDelta;
+  }
+}
+
+
+class Flower2 extends SpriteComponent with DragCallbacks{
+   Flower2(): super(size: plantSize, position: plantPosition);
+
+   @override
+   Future<void> onLoad() async {
+       sprite = await Sprite.load("flower2.png");
+   }
+   
+  // @override
+  // bool debugMode = true;
+
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    debugColor = isDragged ? Colors.greenAccent : Colors.purple;
+  }
+
+  @override
+  void onDragUpdate(DragUpdateEvent event) {
+    position += event.localDelta;
+  }
+}
+
+
+class Flower3 extends SpriteComponent with DragCallbacks{
+   Flower3(): super(size: plantSize, position: plantPosition);
+
+   @override
+   Future<void> onLoad() async {
+       sprite = await Sprite.load("flower3.png");
+   }
+   
+  // @override
+  // bool debugMode = true;
+
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    debugColor = isDragged ? Colors.greenAccent : Colors.purple;
+  }
+
+  @override
+  void onDragUpdate(DragUpdateEvent event) {
+    position += event.localDelta;
+  }
+}
