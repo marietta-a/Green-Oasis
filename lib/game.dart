@@ -6,9 +6,9 @@ import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
 import 'package:flame/layout.dart';
 import 'package:flutter/material.dart';
+import 'package:green_oasis/components/Image_widget.dart';
 import 'package:green_oasis/components/garden.dart';
 import 'package:green_oasis/components/house.dart';
-import 'package:green_oasis/components/item-card.dart';
 import 'package:green_oasis/components/plant.dart';
 import 'package:green_oasis/helpers/helpers.dart';
 
@@ -18,12 +18,13 @@ import 'package:green_oasis/helpers/helpers.dart';
 class MyGame extends FlameGame {
   MyGame({required this.zoom});
   final double zoom;
+  final helpers = Helpers();
 
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    camera.viewport = FixedResolutionViewport(resolution: screenSize);
+    camera.viewport = FixedResolutionViewport(resolution: helpers.screenSize);
   
   @override
   Color backgroundColor() => const Color(0x00000000);
@@ -31,9 +32,9 @@ class MyGame extends FlameGame {
 
     // Add sprites to the game
     add(House2());
-    add(Flower());
+    add(Plant());
     add(Flower1());
-    add(Flower2());
+    add(Flower());
 
 
     // addAll([

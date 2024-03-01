@@ -1,10 +1,10 @@
-import 'dart:ui';
-
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:green_oasis/helpers/helpers.dart';
 
+
+final helpers = Helpers();
 class Garden extends SpriteComponent{
    Garden(): super(size: Vector2.all(10));
 
@@ -15,7 +15,7 @@ class Garden extends SpriteComponent{
 }
 
 class Soil extends SpriteComponent with DragCallbacks{
-   Soil(): super(size: gardenSize, position: gardenPosition);
+   Soil(): super(size: helpers.gardenSize, position: helpers.gardenPosition);
 
    @override
    Future<void> onLoad() async {
