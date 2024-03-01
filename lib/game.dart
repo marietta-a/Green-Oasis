@@ -30,9 +30,10 @@ class MyGame extends FlameGame {
     camera.viewfinder.zoom = zoom;
 
     // Add sprites to the game
-    add(House1());
-    add(Soil());
-    add(Plant1());
+    add(House2());
+    add(Flower());
+    add(Flower1());
+    add(Flower2());
 
 
     // addAll([

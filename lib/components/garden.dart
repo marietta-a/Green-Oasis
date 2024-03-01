@@ -24,7 +24,7 @@ class Soil extends SpriteComponent with DragCallbacks{
    
   // @override
   // bool debugMode = true;
-
+  
 
   @override
   void update(double dt) {

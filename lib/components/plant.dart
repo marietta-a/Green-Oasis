@@ -92,7 +92,7 @@ class Flower extends SpriteComponent with DragCallbacks{
 
    @override
    Future<void> onLoad() async {
-       sprite = await Sprite.load("flower.png");
+       sprite = await Sprite.load("flower.jpg");
    }
    
   // @override
@@ -117,7 +117,7 @@ class Flower1 extends SpriteComponent with DragCallbacks{
 
    @override
    Future<void> onLoad() async {
-       sprite = await Sprite.load("flower1.png");
+       sprite = await Sprite.load("flower1.jpg");
    }
    
   // @override
@@ -142,7 +142,7 @@ class Flower2 extends SpriteComponent with DragCallbacks{
 
    @override
    Future<void> onLoad() async {
-       sprite = await Sprite.load("flower2.png");
+       sprite = await Sprite.load("flower2.jpg");
    }
    
   // @override
@@ -167,7 +167,7 @@ class Flower3 extends SpriteComponent with DragCallbacks{
 
    @override
    Future<void> onLoad() async {
-       sprite = await Sprite.load("flower3.png");
+       sprite = await Sprite.load("flower3.jpg");
    }
    
   // @override
