@@ -9,6 +9,7 @@ import 'package:green_oasis/components/house.dart';
 import 'package:green_oasis/components/plant.dart';
 import 'package:green_oasis/game.dart';
 import 'package:green_oasis/helpers/enums.dart';
+import 'package:green_oasis/helpers/helpers.dart';
 import 'package:green_oasis/settings/settings.dart';
 import 'package:green_oasis/style/my_button.dart';
 import 'package:green_oasis/style/palette.dart';
@@ -62,6 +63,7 @@ class Designer extends StatelessWidget{
     final palette = context.watch<Palette>();
     final settingsController = context.watch<SettingsController>();
     final audioController = context.watch<AudioController>();
+    final helpers = Helpers();
 
       return Scaffold(
       backgroundColor: palette.backgroundLevelSelection,
@@ -72,7 +74,7 @@ class Designer extends StatelessWidget{
               padding: EdgeInsets.all(16),
               child: Center(
                 child: Text(
-                  'Select House Design',
+                  'Select Designs',
                   style:
                       TextStyle(fontFamily: 'Permanent Marker', fontSize: 30),
                 ),
@@ -85,6 +87,7 @@ class Designer extends StatelessWidget{
                           child: ConstrainedBox(
                             constraints: BoxConstraints(
                               minHeight: viewportConstraints.maxHeight,
+                              minWidth: helpers.screenSize.x
                             ),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -93,16 +96,16 @@ class Designer extends StatelessWidget{
                                 Container(
                                   // A fixed-height child.
                                   color: const Color(0xffeeee00), // Yellow
-                                  height: 120.0,
+                                  height: helpers.screenSize.y/2,
                                   alignment: Alignment.center,
                                   child: HouseDesigner()
                                 ),
                                 Container(
                                   // Another fixed-height child.
                                   color: const Color(0xff008000), // Green
-                                  height: 120.0,
+                                  height: helpers.screenSize.y/2,
                                   alignment: Alignment.center,
-                                  child: HouseDesigner()
+                                  child: PlantDesigner()
                                 ),
                               ],
                             ),

@@ -11,6 +11,7 @@ import 'package:green_oasis/audio/audio_controller.dart';
 import 'package:green_oasis/audio/sounds.dart';
 import 'package:green_oasis/components/Image_widget.dart';
 import 'package:green_oasis/components/designs.dart';
+import 'package:green_oasis/components/garden.dart';
 import 'package:green_oasis/components/plant.dart';
 import 'package:green_oasis/game.dart';
 import 'package:green_oasis/helpers/enums.dart';
@@ -22,124 +23,18 @@ import 'package:green_oasis/style/palette.dart';
 import 'package:green_oasis/style/responsive_screen.dart';
 import 'package:provider/provider.dart';
 
-final helpers = Helpers();
-
-class Houses extends FlameGame{
-
-  final designs = [
-      Design(
-        imageSrc: House.src,
-        itemType: ItemType.house,
-        item: House().sprite!
-      ),
-      Design(
-        imageSrc: House1.src,
-        itemType: ItemType.house,
-        item: House().sprite!
-      ),
-      Design(
-        imageSrc: House2.src,
-        itemType: ItemType.house,
-        item: House().sprite!
-      ),
-  ];
-
-  
-  late double zoom = 20;
-  late Helpers helpers = Helpers();
-
-  @override
-  Future<void> onLoad() async {
-    super.onLoad();
-    camera.viewport = FixedResolutionViewport(resolution: helpers.screenSize/2);
-    add(House());
-    // add(House1());
-    // add(House2());
-    
-
-  }
-
-  // @override
-  // Color backgroundColor() => const Color(0x00000000);
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = context.watch<Palette>();
-    final playerProgress = context.watch<PlayerProgress>();
-
-    return Scaffold(
-      backgroundColor: palette.backgroundLevelSelection,
-      body: ResponsiveScreen(
-        squarishMainArea: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(16),
-              child: Center(
-                child: Text(
-                  'Select House Design',
-                  style:
-                      TextStyle(fontFamily: 'Permanent Marker', fontSize: 30),
-                ),
-              ),
-            ),
-            const SizedBox(height: 50),
-            Expanded(
-              child: Column(
-                children: [
-                  for (final item in designs)
-                    ImageWidget(imageSrc: item.imageSrc)
-                ],
-              ),
-            ),
-          ],
-        ),
-        rectangularMenuArea: MyButton(
-          onPressed: () {
-            GoRouter.of(context).go('/');
-          },
-          child: const Text('Back'),
-        ),
-      ),
-    );
-
-    // return Scaffold(
-    //   backgroundColor: palette.backgroundLevelSelection,
-    //   body: ResponsiveScreen(
-    //     squarishMainArea: Column(
-    //       children: [
-    //         const Padding(
-    //           padding: EdgeInsets.all(16),
-    //           child: Center(
-    //             child: Text(
-    //               'Select level',
-    //               style:
-    //                   TextStyle(fontFamily: 'Permanent Marker', fontSize: 30),
-    //             ),
-    //           ),
-    //         ),
-    //         // const SizedBox(height: 50)
-    //       ],
-    //     ), 
-    //     rectangularMenuArea: Column(
-    //     mainAxisAlignment: MainAxisAlignment.end,
-    //     children:[
-    //             for (final house in designs)
-    //                ImageWidget(
-    //                   imageSrc: house.imageSrc,
-    //                   onPressed: () => {
-    //                     house.isSelected = true
-    //                   }
-    //                )
-    //           ],
-    //     ),
-    //   )
-    // );
-  }
-
-}
-
+const helpers = Helpers();
 class HouseDesigner extends StatelessWidget{
   
+  HouseDesigner({super.key});
+
+  final widgets = <Widget> [
+     const House(),
+     const House1(),
+     const House2(),
+  ];
+
+
   @override
   Widget build(BuildContext context) {
     // return MaterialApp(
@@ -147,6 +42,7 @@ class HouseDesigner extends StatelessWidget{
     //   home: GameWidget(game: Houses()),
       
     // );
+     final helpers =  Helpers();
 
      return DefaultTextStyle(
       style: Theme.of(context).textTheme.bodyMedium!,
@@ -156,25 +52,20 @@ class HouseDesigner extends StatelessWidget{
             child: ConstrainedBox(
               constraints: BoxConstraints(
                 minHeight: viewportConstraints.maxHeight,
+                minWidth: helpers.screenSize.x
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Container(
-                    // A fixed-height child.
-                    color: const Color(0xffeeee00), // Yellow
-                    height: helpers.screenSize.y/2,
-                    alignment: Alignment.center,
-                    child: GameWidget(game: MyGame(zoom: 100)),
-                  ),
-                  Container(
-                    // Another fixed-height child.
-                    color: const Color(0xff008000), // Green
-                    height: 120.0,
-                    alignment: Alignment.center,
-                    child: const Text('Fixed Height Content'),
-                  ),
+                  for(final item in widgets)
+                    Container(
+                      // A fixed-height child. // Yellow
+                      color: const Color(0xffeeee00),
+                      height: helpers.itemSize.y,
+                      alignment: Alignment.center,
+                      child: item,
+                    ),
                 ],
               ),
             ),
@@ -185,90 +76,75 @@ class HouseDesigner extends StatelessWidget{
   }
 }
 
+// class House extends SpriteComponent with DragCallbacks{
+//   static String src = "house.png";
+//   House() : super(size: helpers.houseSize);
+//   //  House() : super(size: helpers.houseSize, position: helpers.houseSize);
+
+//    @override
+//    Future<void> onLoad() async {
+//       sprite = await Sprite.load(src);
+//   }
+
+//   // @override
+//   // bool debugMode = true;
 
 
-class House extends SpriteComponent with DragCallbacks{
-  static String src = "house.png";
-  House() : super(size: helpers.houseSize);
-  //  House() : super(size: helpers.houseSize, position: helpers.houseSize);
+//   @override
+//   void update(double dt) {
+//     super.update(dt);
+//     debugColor = isDragged ? Colors.greenAccent : Colors.purple;
+//   }
 
-   @override
-   Future<void> onLoad() async {
-      sprite = await Sprite.load(src);
+//   @override
+//   void onDragUpdate(DragUpdateEvent event) {
+//     position += event.localDelta;
+//   }
+// }
+
+  class House extends StatelessWidget{
+    const House({super.key});
+    static const String src = "assets/images/house.png";
+
+    @override
+    Widget build(BuildContext context) {
+      return Container(
+        key: super.key,
+        color: helpers.cardColor,
+        child: const Image(image: AssetImage(src)),
+        
+      );
+    }
+    
   }
 
-  // @override
-  // bool debugMode = true;
+  class House1 extends StatelessWidget{
+    const House1({super.key});
+    static const String src = "assets/images/house1.webp";
 
+    @override
+    Widget build(BuildContext context) {
+      return Container(
+        key: super.key,
+        color: helpers.cardColor,
+        child: const Image(image: AssetImage(src)),
+        
+      );
+    }
+    
+  }
+class House2 extends StatelessWidget{
+  const House2({super.key});
+  static const String src = "assets/images/house2.png";
 
   @override
-  void update(double dt) {
-    super.update(dt);
-    debugColor = isDragged ? Colors.greenAccent : Colors.purple;
+  Widget build(BuildContext context) {
+    return Container(
+      key: super.key,
+      color: helpers.cardColor,
+      child: const Image(image: AssetImage(src)),
+       
+    );
   }
-
-  @override
-  void onDragUpdate(DragUpdateEvent event) {
-    position += event.localDelta;
-  }
-}
-
-class House1 extends SpriteComponent with DragCallbacks{
-   static String src = "house1.webp";
-  //  House1() : super(size: helpers.houseSize, position: helpers.houseSize);
-  late NineTileBoxComponent nineTileBoxComponent;
-  late Sprite spriteImage;
-
-   @override
-   Future<void> onLoad() async {
-    sprite = await Sprite.load(src);
-  }
-
-  // @override
-  // void onTap() {
-  //   nineTileBoxComponent.scale.scale(1.2);
-  // }
-
-  // @override
-  // void onDoubleTap() {
-  //   nineTileBoxComponent.scale.scale(0.8);
-  // }
-  // @override
-  // bool debugMode = true;
-
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-    debugColor = isDragged ? Colors.greenAccent : Colors.purple;
-  }
-
-  @override
-  void onDragUpdate(DragUpdateEvent event) {
-    position += event.localDelta;
-  }
-}
-
-class House2 extends SpriteComponent with DragCallbacks{
-   static String src = "house2.png";
-  //  House2() : super(size: helpers.houseSize, position: helpers.houseSize);
-
-   @override
-   Future<void> onLoad() async {
-      sprite = await Sprite.load(src);
-  }
-  // @override
-  // bool debugMode = true;
-
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-    debugColor = isDragged ? Colors.greenAccent : Colors.purple;
-  }
-
-  @override
-  void onDragUpdate(DragUpdateEvent event) {
-    position += event.localDelta;
-  }
+  
 }
