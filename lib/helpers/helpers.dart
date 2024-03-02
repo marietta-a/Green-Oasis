@@ -1,7 +1,10 @@
 
+import 'dart:math';
+
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/material.dart';
 
 class Helpers{
   const Helpers();
@@ -26,4 +29,16 @@ class Helpers{
 
   //Syles
   Color get cardColor =>  const Color(0xffeeee00);
+}
+
+
+class MySineTween extends Animatable<double> {
+  final double maxExtent;
+
+  const MySineTween(this.maxExtent);
+
+  @override
+  double transform(double t) {
+    return sin(t * 2 * pi) * maxExtent;
+  }
 }

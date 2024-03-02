@@ -4,7 +4,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
-import 'package:green_oasis/components/designs.dart';
+import 'package:green_oasis/components/design_selector.dart';
 import 'package:provider/provider.dart';
 
 import 'game_internals/score.dart';
