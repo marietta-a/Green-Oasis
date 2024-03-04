@@ -1,9 +1,6 @@
 
 import 'dart:math';
-
-import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
-import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 class Helpers{
@@ -15,7 +12,7 @@ class Helpers{
   Vector2 get houseSize => Vector2.all(400);
 
 
-  Vector2 get itemSize => Vector2.all(200);
+  Vector2 get itemSize => Vector2.all(100);
 
   //plants helpers
   Vector2 get plantSize => Vector2.all(200);

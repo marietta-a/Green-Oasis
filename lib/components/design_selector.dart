@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:green_oasis/audio/audio_controller.dart';
 import 'package:green_oasis/components/design_selectors.dart';
+import 'package:green_oasis/components/designer.dart';
 import 'package:green_oasis/helpers/enums.dart';
 import 'package:green_oasis/helpers/helpers.dart';
 import 'package:green_oasis/settings/settings.dart';
@@ -14,8 +15,8 @@ import 'package:green_oasis/style/palette.dart';
 import 'package:green_oasis/style/responsive_screen.dart';
 import 'package:provider/provider.dart';
 
-class Designer extends StatelessWidget{
-  const Designer({super.key});
+class DesignSelector extends StatelessWidget{
+  const DesignSelector({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,33 +46,39 @@ class Designer extends StatelessWidget{
                         return SingleChildScrollView(
                           child: ConstrainedBox(
                             constraints: BoxConstraints(
-                              minHeight: viewportConstraints.maxHeight,
-                              minWidth: viewportConstraints.maxWidth
+                              minHeight: viewportConstraints.minHeight,
+                              minWidth: viewportConstraints.minWidth
                             ),
-                            child: Flex(
-                              // mainAxisSize: MainAxisSize.min,
-                              // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              direction: Axis.horizontal,
-                            
-                              children: <Widget>[
-                                Container(
-                                  // A fixed-height child.
-                                  color: helpers.cardColor, // Yellow
-                                  height: viewportConstraints.minHeight,
-                                  alignment: Alignment.center,
-                                  child: HouseDesigner(
-                                    onTap: () {  }
-                                  )
+                            child: Row(
+                              children: [
+                                Flex(
+                                  // mainAxisSize: MainAxisSize.min,
+                                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  direction: Axis.horizontal,
+                                
+                                  children: <Widget>[
+                                    Container(
+                                      // A fixed-height child.
+                                      color: helpers.cardColor, // Yellow
+                                      height: viewportConstraints.minHeight,
+                                      alignment: Alignment.center,
+                                      child: const HouseDesigner()
+                                    ),
+                                    Container(
+                                      // Another fixed-height child.
+                                      color: helpers.cardColor, // Green
+                                      height: viewportConstraints.minHeight,
+                                      alignment: Alignment.center,
+                                      child: const PlantDesigner()
+                                    ),
+                                  ],
                                 ),
-                                Container(
-                                  // Another fixed-height child.
-                                  color: helpers.cardColor, // Green
-                                  height: viewportConstraints.minHeight,
-                                  alignment: Alignment.center,
-                                  child: PlantDesigner()
-                                ),
+                               const Flex(
+                                  direction: Axis.horizontal,
+                                  children: [Designer()],
+                                )
                               ],
-                            ),
+                            )
                           ),
                         );
                       },
@@ -79,11 +86,21 @@ class Designer extends StatelessWidget{
             ),
           ],
         ),
-        rectangularMenuArea: MyButton(
-          onPressed: () {
-            GoRouter.of(context).go('/');
-          },
-          child: const Text('Back'),
+        rectangularMenuArea: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            MyButton(
+              onPressed: () {
+                GoRouter.of(context).go('/designer');
+              },
+              child: const Text('Start Design'),
+            ),
+            _gap,
+            MyButton(
+              onPressed: () => GoRouter.of(context).go('/'),
+              child: const Text('Back'),
+            ),
+          ],
         ),
       ),
     );
@@ -94,10 +111,9 @@ class Designer extends StatelessWidget{
 }
 
 class Design{
-  Sprite item;
-  String imageSrc;
-  late bool isSelected = false;
+  Widget widget;
   final ItemType itemType;
+  final String src;
 
-  Design({required this.imageSrc, required this.itemType, required this.item});
+  Design(this.src, {required this.itemType, required this.widget});
 }

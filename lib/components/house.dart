@@ -38,7 +38,7 @@ const helpers = Helpers();
     Widget build(BuildContext context) {
       return Container(
         key: super.key,
-        color: helpers.cardColor,
+       // color: helpers.cardColor,
         child: const Image(image: AssetImage(src)),
         
       );
@@ -54,7 +54,7 @@ const helpers = Helpers();
     Widget build(BuildContext context) {
       return Container(
         key: super.key,
-        color: helpers.cardColor,
+       // color: helpers.cardColor,
         child: const Image(image: AssetImage(src)),
         
       );
@@ -69,7 +69,7 @@ class House2 extends StatelessWidget{
   Widget build(BuildContext context) {
     return Container(
       key: super.key,
-      color: helpers.cardColor,
+     // color: helpers.cardColor,
       child: const Image(image: AssetImage(src)),
        
     );

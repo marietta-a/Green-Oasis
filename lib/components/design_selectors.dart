@@ -1,17 +1,28 @@
 
 import 'package:flutter/material.dart';
 import 'package:green_oasis/components/core.dart';
+import 'package:green_oasis/components/design_selector.dart';
 import 'package:green_oasis/components/house.dart';
 import 'package:green_oasis/components/plant.dart';
+import 'package:green_oasis/helpers/enums.dart';
 import 'package:green_oasis/helpers/helpers.dart';
 
 const helpers = Helpers();
 
-class PlantDesigner extends StatelessWidget{
 
-  PlantDesigner({super.key});
+class PlantDesigner extends StatefulWidget{
+  const PlantDesigner({super.key});
+  static List<MyAnimatableElement> activeElements = [];
 
-  final widgets = [
+  @override
+  State<StatefulWidget> createState() => _PlantDesigner();
+  
+}
+class _PlantDesigner extends State<PlantDesigner>{
+
+  _PlantDesigner();
+
+  final widgets = <MyAnimatableElement>[
     const MyAnimatableElement(
       src: Plant.src,
       child: Plant()
@@ -20,10 +31,10 @@ class PlantDesigner extends StatelessWidget{
       src: Plant2.src, 
       child: Plant2()
     ),
-    const MyAnimatableElement(
-       src: Plant2.src,
-       child: Plant2()
-    ),
+    // const MyAnimatableElement(
+    //    src: Plant2.src,
+    //    child: Plant2()
+    // ),
     // const Plant4(),
     // const Plant5(),
   ];
@@ -34,47 +45,55 @@ class PlantDesigner extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
         // The GestureDetector wraps the button.
-    return GestureDetector(
-      // When the child is tapped, show a snackbar.
-      onTap: () {
-        const snackBar = SnackBar(content: Text('Tap'));
-
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      },
-      child: Flex(
-        // mainAxisSize: MainAxisSize.min,
-        // mainAxisAlignment: MainAxisAlignment.spaceAround,
-        direction: Axis.horizontal,
-        children: <Widget>[
-          for(final item in widgets)
-            Container(
-              // A fixed-height child. // Yellow
-              color: const Color(0xffeeee00),
-              height: helpers.itemSize.y,
-              alignment: Alignment.center,
-              child: GestureDetector(
-                child: Card(
+    
+     return Flex(
+       // mainAxisSize: MainAxisSize.min,
+       // mainAxisAlignment: MainAxisAlignment.spaceAround,
+       direction: Axis.vertical,
+       children: <Widget>[
+         for(final item in widgets)
+           Container(
+             // A fixed-height child. // Yellow
+             color: const Color(0xffeeee00),
+             height: helpers.itemSize.y,
+             alignment: Alignment.center,
+             child: GestureDetector(
+              child:  Card(
                   elevation: 2,
                   borderOnForeground: true,
                   child: item
                 ),
-              ),
-            ),
-        ],
-      ),
-    );
+                onTap: () {
+                  PlantDesigner.activeElements.add(item);
+
+                  const snackBar = SnackBar(content: Text('Tap'));
+
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
+             ),
+           ),
+       ],
+     );
 
   }
   
 }
 
+class HouseDesigner extends StatefulWidget{
 
-class HouseDesigner extends StatelessWidget{
+  const HouseDesigner({super.key});
+
+  static List<MyAnimatableElement> activeElements = [];
+   
+  @override
+  State<StatefulWidget> createState() => _HouseDesigner();
   
-  HouseDesigner({super.key, required this.onTap});
-  final VoidCallback? onTap;
+}
+class _HouseDesigner extends State<HouseDesigner>{
+  
+  _HouseDesigner();
 
-  final widgets = <Widget> [
+  final widgets = <MyAnimatableElement> [
      const MyAnimatableElement(
       src: House.src, 
       child: House(),
@@ -100,7 +119,7 @@ class HouseDesigner extends StatelessWidget{
      return Flex(
        // mainAxisSize: MainAxisSize.min,
        // mainAxisAlignment: MainAxisAlignment.spaceAround,
-       direction: Axis.horizontal,
+       direction: Axis.vertical,
        children: <Widget>[
          for(final item in widgets)
            Container(
@@ -114,7 +133,14 @@ class HouseDesigner extends StatelessWidget{
                   borderOnForeground: true,
                   child: item
                 ),
-              onTap: () => onTap,
+                onTap: () {
+                  HouseDesigner.activeElements.clear();
+                  HouseDesigner.activeElements.add(item);
+
+                  const snackBar = SnackBar(content: Text('Tap'));
+
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
              ),
            ),
        ],

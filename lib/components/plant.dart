@@ -13,7 +13,7 @@ class Plant extends StatelessWidget{
     Widget build(BuildContext context) {
       return Container(
         key: super.key,
-        color: helpers.cardColor,
+        // color: helpers.cardColor,
         child: const Image(image: AssetImage(src)),
         
       );
@@ -29,7 +29,7 @@ class Plant1 extends StatelessWidget{
     Widget build(BuildContext context) {
       return Container(
         key: super.key,
-        color: helpers.cardColor,
+        // color: helpers.cardColor,
         child: const Image(image: AssetImage(src)),
         
       );
@@ -45,7 +45,7 @@ class Plant2 extends StatelessWidget{
     Widget build(BuildContext context) {
       return Container(
         key: super.key,
-        color: helpers.cardColor,
+        // color: helpers.cardColor,
         child: const Image(image: AssetImage(src)),
         
       );
@@ -62,7 +62,7 @@ class Plant3 extends StatelessWidget{
     Widget build(BuildContext context) {
       return Container(
         key: super.key,
-        color: helpers.cardColor,
+        // color: helpers.cardColor,
         child: const Image(image: AssetImage(src)),
         
       );
@@ -79,7 +79,7 @@ class Plant4 extends StatelessWidget{
     Widget build(BuildContext context) {
       return Container(
         key: super.key,
-        color: helpers.cardColor,
+        // color: helpers.cardColor,
         child: const Image(image: AssetImage(src)),
         
       );
@@ -96,7 +96,7 @@ class Plant5 extends StatelessWidget{
     Widget build(BuildContext context) {
       return Container(
         key: super.key,
-        color: helpers.cardColor,
+        // color: helpers.cardColor,
         child: const Image(image: AssetImage(src)),
         
       );
