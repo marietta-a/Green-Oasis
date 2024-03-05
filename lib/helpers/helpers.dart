@@ -2,6 +2,7 @@
 import 'dart:math';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 
 class Helpers{
   const Helpers();
@@ -26,6 +27,44 @@ class Helpers{
 
   //Syles
   Color get cardColor =>  const Color(0xffeeee00);
+
+  Future<dynamic> openCustomDialog(BuildContext context,  String title, String content, Color color) async{
+     return  showGeneralDialog(
+        barrierColor: Colors.black.withOpacity(0.5),
+        transitionBuilder: (context, a1, a2, widget) {
+          final curvedValue = Curves.easeInOutBack.transform(a1.value) -   1.0;
+          return Transform(
+            transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
+            child: Opacity(
+              opacity: a1.value,
+              child: AlertDialog(
+                shape: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.0)),
+                title: Text(title),
+                content: Text(content, selectionColor: Colors.white,),
+                backgroundColor: color,
+              ),
+            ),
+          );
+        },
+        transitionDuration: Duration(milliseconds: 200),
+        barrierDismissible: true,
+        barrierLabel: '',
+        context: context,
+        pageBuilder: (context, animation1, animation2) {
+            return ClassicGeneralDialogWidget(
+              titleText: 'Title',
+              contentText: 'content',
+              onPositiveClick: () {
+                Navigator.of(context).pop();
+              },
+              onNegativeClick: () {
+                Navigator.of(context).pop();
+              },
+            );
+        }
+      );
+  }
 }
 
 

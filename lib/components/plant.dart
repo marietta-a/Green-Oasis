@@ -103,3 +103,86 @@ class Plant5 extends StatelessWidget{
     }
     
 }
+
+
+class Flower extends StatelessWidget{
+    const Flower({super.key});
+    static const String src = "assets/images/flower.png";
+
+    @override
+    Widget build(BuildContext context) {
+      return Container(
+        key: super.key,
+        // color: helpers.cardColor,
+        child: const Image(image: AssetImage(src)),
+        
+      );
+    }
+    
+}
+
+class Flower1 extends StatelessWidget{
+    const Flower1({super.key});
+    static const String src = "assets/images/flower1.png";
+
+    @override
+    Widget build(BuildContext context) {
+      return Container(
+        key: super.key,
+        // color: helpers.cardColor,
+        child: const Image(image: AssetImage(src)),
+        
+      );
+    }
+    
+}
+
+
+class FlowerArtificial extends StatelessWidget{
+    const FlowerArtificial({super.key});
+    static const String src = "assets/images/flowerart.png";
+
+    @override
+    Widget build(BuildContext context) {
+      return Container(
+        key: super.key,
+        // color: helpers.cardColor,
+        child: const Image(image: AssetImage(src)),
+        
+      );
+    }
+    
+}
+
+
+class FlowerArtificial1 extends StatelessWidget{
+    const FlowerArtificial1({super.key});
+    static const String src = "assets/images/flowerart1.png";
+
+    @override
+    Widget build(BuildContext context) {
+      return Container(
+        key: super.key,
+        // color: helpers.cardColor,
+        child: const Image(image: AssetImage(src)),
+        
+      );
+    }
+    
+}
+
+class FlowerArtificial2 extends StatelessWidget{
+    const FlowerArtificial2({super.key});
+    static const String src = "assets/images/flowerart2.png";
+
+    @override
+    Widget build(BuildContext context) {
+      return Container(
+        key: super.key,
+        // color: helpers.cardColor,
+        child: const Image(image: AssetImage(src)),
+        
+      );
+    }
+    
+}

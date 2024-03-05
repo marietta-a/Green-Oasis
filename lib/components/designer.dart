@@ -1,73 +1,83 @@
 import 'package:flutter/material.dart';
-import 'package:green_oasis/components/design_selectors.dart';
+import 'package:go_router/go_router.dart';
+import 'package:green_oasis/audio/audio_controller.dart';
+import 'package:green_oasis/audio/sounds.dart';
+import 'package:green_oasis/components/core.dart';
+import 'package:green_oasis/game_internals/level_state.dart';
+import 'package:green_oasis/game_internals/score.dart';
+import 'package:green_oasis/level_selection/levels.dart';
+import 'package:green_oasis/player_progress/player_progress.dart';
+import 'package:logging/logging.dart';
+import 'package:provider/provider.dart';
+
 
 class Designer extends StatefulWidget{
-  const Designer({super.key});
-  @override
-  State<StatefulWidget> createState() => _Designer();
+    
+  final GameLevel level;
+  Designer({super.key, required this.designNotifier, required this.level});
+
+  final DesignModel designNotifier;
   
+  @override
+  State<StatefulWidget> createState() => _Designer(designNotifier: designNotifier);
 }
 
-class _Designer extends State<Designer> {
-  _Designer();
 
-  // final String name;
-  // final String location;
+class _Designer extends State<Designer>{
+  _Designer({required this.designNotifier});
 
-  
+  final DesignModel designNotifier;
+
+
 
   @override
   Widget build(BuildContext context) {
 
-    final plantLen = PlantDesigner.activeElements.length;
-    final halfLen = int.parse((plantLen/2).toString());
-    
+   designNotifier.setGameLevel(widget.level);
 
-    return Align(
-      alignment: Alignment.center,
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Row(
-            children: [
-                /*1*/
-              for(var i = 0 ; i < plantLen/2 ; i ++)
-                SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: Padding(
-                      padding: const EdgeInsets.all(1),
-                      child: PlantDesigner.activeElements[i],
-                    )
-              ),
-
-              for(final item in HouseDesigner.activeElements)
-                SizedBox(
-                    height: 400,
-                    width: 200,
-                    child: Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: item,
-                    )
-                )
-                ,
-              for(var i = halfLen ; i < plantLen ; i ++)
-                SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: Padding(
-                      padding: const EdgeInsets.all(1),
-                      child: PlantDesigner.activeElements[i],
-                    )
-              ),
-              /*3*/
-              // Icon(
-              //   Icons.star,
-              //   color: Colors.red[500],
-              // ),
-              // const Text('41'),
-            ],
-          ),
-      )
+    return  ListenableBuilder(listenable: designNotifier, 
+    builder: (context, child){
+      return  Padding(
+            padding: const EdgeInsets.all(32),
+            child: Row(
+                    children: [
+                        /*1*/
+                      for(final item in designNotifier.houses)
+                        SizedBox(
+                            height: 400,
+                            width: 200,
+                            child: Padding(
+                              padding: const EdgeInsets.all(3),
+                              child: GestureDetector(
+                                child: item,
+                                onTap: (){
+                                  // designNotifier.removeHouse(item);
+                                }
+                              ),
+                            )
+                        ),
+                      for(final item in designNotifier.plants)
+                        SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: Padding(
+                              padding: const EdgeInsets.all(1),
+                              child: GestureDetector(
+                                child: item,
+                                onTap: (){
+                                  designNotifier.removePlant(item);
+                                }
+                              ),
+                            )
+                      ),
+                    ]
+            )
+        );
+      }
     );
   }
 }
+
+
+
+  

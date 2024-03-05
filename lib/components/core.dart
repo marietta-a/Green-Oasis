@@ -2,14 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:green_oasis/helpers/helpers.dart';
+import 'package:green_oasis/level_selection/levels.dart';
 
 class MyAnimatableElement extends StatefulWidget{
   
   final Widget child;
   final VoidCallback? onTap;
   final String src;
+  final bool isArtifical;
 
-  const MyAnimatableElement({super.key, this.onTap, required this.src, required this.child});
+  const MyAnimatableElement({super.key, this.onTap, required this.src, required this.isArtifical, required this.child});
 
   @override
   // ignore: no_logic_in_create_state
@@ -58,4 +60,49 @@ class _Element extends State<MyAnimatableElement>
     );
   }
   
+}
+
+
+
+class DesignModel with ChangeNotifier {
+   GameLevel level = gameLevels[1];
+   List<MyAnimatableElement> plants = [];
+   List<MyAnimatableElement> houses = [];
+
+
+  void setGameLevel(GameLevel level){
+    this.level = level;
+    notifyListeners();
+  }
+
+  void clearPlants() {
+    plants.clear();
+    notifyListeners();
+  }
+
+  void removePlant(MyAnimatableElement plant) {
+    plants.remove(plant);
+    notifyListeners();
+  }
+
+  void addPlants(MyAnimatableElement plant) {
+    plants.add(plant);
+    notifyListeners();
+  }
+
+
+
+  void addHouses(MyAnimatableElement house) {
+    houses.add(house);
+    notifyListeners();
+  }
+  void clearHouses() {
+    houses.clear();
+    notifyListeners();
+  }
+
+  void removeHouse(MyAnimatableElement house) {
+    houses.remove(house);
+    notifyListeners();
+  }
 }

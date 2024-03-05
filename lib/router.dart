@@ -4,7 +4,9 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:green_oasis/components/core.dart';
 import 'package:green_oasis/components/design_selector.dart';
+import 'package:green_oasis/components/design_selectors.dart';
 import 'package:green_oasis/components/designer.dart';
 import 'package:provider/provider.dart';
 
@@ -39,16 +41,34 @@ final router = GoRouter(
               GoRoute(
                 path: 'session/:level',
                 pageBuilder: (context, state) {
+                  final designNotifier = DesignModel();
                   final levelNumber = int.parse(state.pathParameters['level']!);
                   final level =
                       gameLevels.singleWhere((e) => e.number == levelNumber);
                   return buildMyTransition<void>(
                     key: ValueKey('level'),
                     color: context.watch<Palette>().backgroundPlaySession,
-                    child: PlaySessionScreen(
-                      level,
-                      key: const Key('play session'),
-                    ),
+                    // child: PlaySessionScreen(
+                    //   level,
+                    //   key: const Key('play session'),
+                    // ),
+                    
+                    child: DesignSelector(designNotifier: designNotifier,key: const Key('play geame')),
+                  );
+                },
+              ),
+              GoRoute(
+                path: 'designer/:level',
+                pageBuilder: (context, state) {
+                  final designNotifier = DesignModel();
+                  // final levelNumber = int.parse(state.pathParameters['level']!);
+                  final levelNumber = int.parse(state.pathParameters['level']!);
+                  final level =
+                      gameLevels.singleWhere((e) => e.number == levelNumber);
+                  return buildMyTransition<void>(
+                    key: const ValueKey('designer-level'),
+                    color: context.watch<Palette>().backgroundPlaySession,
+                    child: DesignSelector(designNotifier: designNotifier,key: const Key('play geame'))
                   );
                 },
               ),
@@ -86,14 +106,48 @@ final router = GoRouter(
         ),
         GoRoute(
           path: 'design-selector',
-          builder: (context, state) =>
-               const DesignSelector(key: Key('design selector')),
+          builder: (context, state){
+             final designNotifier = DesignModel();
+             return   DesignSelector(key: const Key('design selector'), designNotifier: designNotifier);
+          }
         ),
-        GoRoute(
-          path: 'designer',
-          builder: (context, state) =>
-               const Designer(key: Key('designer')),
-        ),
+        
+        // GoRoute(
+        //   path: 'designer/:level',
+        //   pageBuilder: (context, state) {
+        //     final levelNumber = int.parse(state.pathParameters['level']!);
+        //     final level =
+        //         gameLevels.singleWhere((e) => e.number == levelNumber);
+        //     return buildMyTransition<void>(
+        //       key: ValueKey('level'),
+        //       color: context.watch<Palette>().backgroundPlaySession,
+        //       child: PlaySessionScreen(
+        //         level,
+        //         key: const Key('play session'),
+        //       ),
+        //     );
+        //   },
+        // ),
+        // GoRoute(
+        //   path: 'play/designer/:level',
+        //   pageBuilder: (context, state) {
+        //      final designNotifier = DesignModel();
+        //     // final levelNumber = int.parse(state.pathParameters['level']!);
+        //     const levelNumber = 1;
+        //     final level =
+        //         gameLevels.singleWhere((e) => e.number == levelNumber);
+        //     return buildMyTransition<void>(
+        //       key: const ValueKey('level'),
+        //       color: context.watch<Palette>().backgroundPlaySession,
+        //       child: DesignSelector(designNotifier: designNotifier,key: const Key('play session'))
+        //       // child: Designer(
+        //       //   designNotifier: designNotifier,
+        //       //   level: level,
+        //       //   key: const Key('play session'),
+        //       // ),
+        //     );
+        //   },
+        // ),
       ],
     ),
   ],
