@@ -65,6 +65,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
           create: (context) => LevelState(
             goal: widget.level.difficulty,
             onWin: _playerWon,
+            onLose: _playerLost
           ),
         ),
       ],
@@ -126,6 +127,35 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
         ),
       ),
     );
+  }
+  Future<void> _playerLost() async {
+    _log.info('Level ${widget.level.number} failed');
+
+    final score = Score(
+      widget.level.number,
+      widget.level.difficulty,
+      DateTime.now().difference(_startOfPlay),
+    );
+
+    final playerProgress = context.read<PlayerProgress>();
+    playerProgress.setLevelReached(widget.level.number);
+
+    // Let the player see the game just after winning for a bit.
+    await Future<void>.delayed(_preCelebrationDuration);
+    if (!mounted) return;
+
+    setState(() {
+      _duringCelebration = true;
+    });
+
+    final audioController = context.read<AudioController>();
+    audioController.playSfx(SfxType.wssh);
+
+    /// Give the player some time to see the celebration animation.
+    await Future<void>.delayed(_celebrationDuration);
+    if (!mounted) return;
+
+    GoRouter.of(context).go('/play/lost', extra: {'score': score});
   }
 
   Future<void> _playerWon() async {

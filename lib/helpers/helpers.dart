@@ -1,5 +1,6 @@
 
 import 'dart:math';
+import 'dart:ui';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
@@ -43,6 +44,14 @@ class Helpers{
                 title: Text(title),
                 content: Text(content, selectionColor: Colors.white,),
                 backgroundColor: color,
+                titleTextStyle: const TextStyle(
+                  color: Colors.white,
+                  backgroundColor: Colors.cyan
+                ),
+                contentTextStyle: TextStyle(
+                  color: Colors.white,
+                  backgroundColor: color
+                ),
               ),
             ),
           );

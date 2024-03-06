@@ -8,6 +8,7 @@ import 'package:green_oasis/components/core.dart';
 import 'package:green_oasis/components/design_selector.dart';
 import 'package:green_oasis/components/design_selectors.dart';
 import 'package:green_oasis/components/designer.dart';
+import 'package:green_oasis/lost_game/lose_game_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'game_internals/score.dart';
@@ -94,6 +95,32 @@ final router = GoRouter(
                     child: WinGameScreen(
                       score: score,
                       key: const Key('win game'),
+                    ),
+                  );
+                },
+              ),
+              GoRoute(
+                path: 'lost',
+                redirect: (context, state) {
+                  if (state.extra == null) {
+                    // Trying to navigate to a win screen without any data.
+                    // Possibly by using the browser's back button.
+                    return '/';
+                  }
+
+                  // Otherwise, do not redirect.
+                  return null;
+                },
+                pageBuilder: (context, state) {
+                  final map = state.extra! as Map<String, dynamic>;
+                  final score = map['score'] as Score;
+
+                  return buildMyTransition<void>(
+                    key: ValueKey('lost'),
+                    color: context.watch<Palette>().backgroundPlaySession,
+                    child: LoseGameScreen(
+                      score: score,
+                      key: const Key('lost game'),
                     ),
                   );
                 },

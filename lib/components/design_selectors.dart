@@ -100,6 +100,7 @@ class _PlantDesigner extends State<PlantDesigner>{
             create: (context) => LevelState(
               goal: designNotifier.level.difficulty,
               onWin: _playerWon,
+              onLose: _playerLost
             ),
           ),
         ],
@@ -131,16 +132,16 @@ class _PlantDesigner extends State<PlantDesigner>{
                                         designNotifier.addPlants(item);
 
                                         final conservablePlants = designNotifier.plants.where((element) => !element.isArtifical);
-                                        final points = item.isArtifical ? levelState.progress - 10 : (conservablePlants.length * 20);
+                                        final points = item.isArtifical ? levelState.progress - 20 : (conservablePlants.length * 20);
                                         final pointsGained = levelState.progress > points ? levelState.progress - points : points - levelState.progress;
-
+                                        final title = "total points = $points";
                                         
                                         if(item.isArtifical){
-                                           helpers.openCustomDialog(context, '', 'you lost 10 points for using and Artificial flower', Colors.red);
+                                           helpers.openCustomDialog(context, title, 'you lost 20 points for using and Artificial flower', Colors.red);
                                         }
                                         else{
                                           
-                                           helpers.openCustomDialog(context, '', 'you gained $pointsGained points for using natural plants', Colors.green);
+                                           helpers.openCustomDialog(context, title, 'you gained $pointsGained points for using natural plants', Colors.green);
                                         }
 
                                         levelState.setProgress(points);
@@ -162,6 +163,36 @@ class _PlantDesigner extends State<PlantDesigner>{
         }
     );
 
+  }
+
+  Future<void> _playerLost() async {
+    _log.info('Level ${designNotifier.level.number} failed');
+
+    final score = Score(
+      designNotifier.level.number,
+      designNotifier.level.difficulty,
+      DateTime.now().difference(_startOfPlay),
+    );
+
+    final playerProgress = context.read<PlayerProgress>();
+    playerProgress.setLevelReached(designNotifier.level.number);
+
+    // Let the player see the game just after winning for a bit.
+    await Future<void>.delayed(_preCelebrationDuration);
+    if (!mounted) return;
+
+    setState(() {
+      _duringCelebration = true;
+    });
+
+    final audioController = context.read<AudioController>();
+    audioController.playSfx(SfxType.wssh);
+
+    /// Give the player some time to see the celebration animation.
+    await Future<void>.delayed(_celebrationDuration);
+    if (!mounted) return;
+
+    GoRouter.of(context).go('/play/lost', extra: {'score': score});
   }
 
   Future<void> _playerWon() async {

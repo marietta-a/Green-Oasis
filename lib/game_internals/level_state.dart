@@ -10,10 +10,11 @@ import 'package:flutter/foundation.dart';
 /// the value of [progress] reaches [goal].
 class LevelState extends ChangeNotifier {
   final VoidCallback onWin;
+  final VoidCallback onLose;
 
   final int goal;
 
-  LevelState({required this.onWin, this.goal = 100});
+  LevelState({required this.onWin, required this.onLose, this.goal = 100});
 
   int _progress = 0;
 
@@ -27,6 +28,9 @@ class LevelState extends ChangeNotifier {
   void evaluate() {
     if (_progress >= goal) {
       onWin();
+    }
+    if(_progress < 0){
+      onLose();
     }
   }
 }
