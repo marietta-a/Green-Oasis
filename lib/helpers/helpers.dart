@@ -29,6 +29,24 @@ class Helpers{
   //Syles
   Color get cardColor =>  const Color(0xffeeee00);
 
+  static double points = 0;
+
+  double evaluatePoint(Vector2 parentPosition, Vector2 parentSize, Vector2 itemPosition, Vector2 itemSize, {bool isFake = false}){
+    var parentX = parentPosition.x + parentSize.x;
+    var parentY = parentPosition.y + parentSize.y;
+    var childX = itemPosition.x + itemSize.x;
+    var childY = itemSize.y + itemSize.y;
+    var isValidX = childX >= parentPosition.x && childX <= parentX;
+    var isValidY = childY >= parentPosition.y && childY <= parentY;
+    double points = 0;
+
+    if(isValidX && isValidY){
+      points = isFake ? -10 : 20;
+    }
+
+    return points;
+ }
+
   Future<dynamic> openCustomDialog(BuildContext context,  String title, String content, Color color) async{
      return  showGeneralDialog(
         barrierColor: Colors.black.withOpacity(0.5),

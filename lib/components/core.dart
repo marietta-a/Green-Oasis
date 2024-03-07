@@ -68,11 +68,22 @@ class DesignModel with ChangeNotifier {
    GameLevel level = gameLevels[1];
    List<MyAnimatableElement> plants = [];
    List<MyAnimatableElement> houses = [];
+   double points = Helpers.points;
 
+
+  String getPointText(){
+     return "Points $points";
+  }
 
   void setGameLevel(GameLevel level){
     this.level = level;
     notifyListeners();
+  }
+
+  double setPoints(double points){
+     Helpers.points += points;
+     points = Helpers.points;
+     return points;
   }
 
   void clearPlants() {
