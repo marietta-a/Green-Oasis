@@ -106,8 +106,18 @@ class _PlantDesigner extends State<PlantDesigner>{
         ],
         builder:  (BuildContext context, Widget? child){
           
-          final levelState = context.watch<LevelState>();
-          return   IgnorePointer(
+        final levelState = context.watch<LevelState>();
+        
+        return  Container(
+          child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints viewportConstraints) {
+            return SingleChildScrollView(
+             child: ConstrainedBox(
+                 constraints: BoxConstraints(
+                minHeight: viewportConstraints.minHeight,
+                minWidth: viewportConstraints.minWidth
+            ),
+            child: IgnorePointer(
           // Ignore all input during the celebration animation.
               ignoring: _duringCelebration,
               child: Flex(
@@ -132,16 +142,17 @@ class _PlantDesigner extends State<PlantDesigner>{
                                         designNotifier.addPlants(item);
 
                                         final conservablePlants = designNotifier.plants.where((element) => !element.isArtifical);
-                                        final points = item.isArtifical ? levelState.progress - 20 : (conservablePlants.length * 20);
+                                        final artificial = designNotifier.plants.where((element) => element.isArtifical);
+                                        final points = (conservablePlants.length * 20) - (artificial.length * 10);
                                         final pointsGained = levelState.progress > points ? levelState.progress - points : points - levelState.progress;
                                         final title = "total points = $points";
                                         
                                         if(item.isArtifical){
-                                           helpers.openCustomDialog(context, title, 'you lost 20 points for using and Artificial flower', Colors.red);
+                                           helpers.openCustomDialog(context, title, '-20 points for Artificial plants', Colors.red);
                                         }
                                         else{
                                           
-                                           helpers.openCustomDialog(context, title, 'you gained $pointsGained points for using natural plants', Colors.green);
+                                           helpers.openCustomDialog(context, title, '+$pointsGained', Colors.green);
                                         }
 
                                         levelState.setProgress(points);
@@ -158,11 +169,16 @@ class _PlantDesigner extends State<PlantDesigner>{
                               ),
                             ),
                         ],
+                        )
                       )
+                    )
+                  );
+                },
+              ),
           );
         }
     );
-
+        
   }
 
   Future<void> _playerLost() async {
@@ -240,6 +256,13 @@ class _HouseDesigner extends State<HouseDesigner>{
   
   _HouseDesigner(this.designNotifier);
 
+  @override
+  void initState() {
+    super.initState();
+    designNotifier.clearHouses();
+    designNotifier.addHouses(widgets[1]);
+  }
+
   final DesignModel designNotifier;
 
   final widgets = <MyAnimatableElement> [
@@ -263,8 +286,6 @@ class _HouseDesigner extends State<HouseDesigner>{
 
   @override
   Widget build(BuildContext context) {
-   designNotifier.clearHouses();
-   designNotifier.addHouses(widgets[1]);
     // return MaterialApp(
     //   title: 'Green Oasis',
     //   home: GameWidget(game: Houses()),

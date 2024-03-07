@@ -37,15 +37,34 @@ class _Designer extends State<Designer>{
 
     return  ListenableBuilder(listenable: designNotifier, 
     builder: (context, child){
-      return  Padding(
-            padding: const EdgeInsets.all(32),
+      final plantsLength = designNotifier.plants.length;
+      final plantsMidLength = plantsLength / 2;
+      var i = 0;
+      return  Flexible(
+            // padding: const EdgeInsets.all(32),
+            fit: FlexFit.tight,
             child: Row(
                     children: [
                         /*1*/
+                      for( ; i < plantsMidLength; i++)
+                        SizedBox(
+                            height: 100,
+                            width: 60,
+                            child: Padding(
+                              padding: const EdgeInsets.all(1),
+                              child: GestureDetector(
+                                child: designNotifier.plants[i],
+                                onTap: (){
+                                  designNotifier.removePlant(designNotifier.plants[i]);
+                                }
+                              ),
+                            )
+                      ),
+
                       for(final item in designNotifier.houses)
                         SizedBox(
                             height: 400,
-                            width: 200,
+                            width: 150,
                             child: Padding(
                               padding: const EdgeInsets.all(3),
                               child: GestureDetector(
@@ -56,16 +75,16 @@ class _Designer extends State<Designer>{
                               ),
                             )
                         ),
-                      for(final item in designNotifier.plants)
+                      for(; i < plantsLength; i++)
                         SizedBox(
                             height: 100,
-                            width: 100,
+                            width: 60,
                             child: Padding(
                               padding: const EdgeInsets.all(1),
                               child: GestureDetector(
-                                child: item,
+                                child: designNotifier.plants[i],
                                 onTap: (){
-                                  designNotifier.removePlant(item);
+                                  designNotifier.removePlant(designNotifier.plants[i]);
                                 }
                               ),
                             )

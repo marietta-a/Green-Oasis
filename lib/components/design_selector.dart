@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:green_oasis/audio/audio_controller.dart';
 import 'package:green_oasis/components/core.dart';
@@ -65,10 +66,10 @@ class _DesignSelector extends State<DesignSelector>{
                             ),
                             child: Row(
                               children: [
-                                Flex(
+                                Row(
                                   // mainAxisSize: MainAxisSize.min,
                                   // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  direction: Axis.horizontal,
+                                  // direction: Axis.horizontal,
                                 
                                   children: <Widget>[
                                     Container(
@@ -87,9 +88,9 @@ class _DesignSelector extends State<DesignSelector>{
                                     ),
                                   ],
                                 ),
-                                Flex(
-                                  direction: Axis.horizontal,
-                                  children: [Designer(designNotifier: designNotifier, level: level)],
+                                Container(
+                                  // direction: Axis.horizontal,
+                                  child: Designer(designNotifier: designNotifier, level: level),
                                 )
                               ],
                             )
