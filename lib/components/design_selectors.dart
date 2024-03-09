@@ -188,6 +188,7 @@ class _PlantDesigner extends State<PlantDesigner>{
       designNotifier.level.number,
       designNotifier.level.difficulty,
       DateTime.now().difference(_startOfPlay),
+      designNotifier.totalpoints.round()
     );
 
     final playerProgress = context.read<PlayerProgress>();
@@ -218,6 +219,7 @@ class _PlantDesigner extends State<PlantDesigner>{
       designNotifier.level.number,
       designNotifier.level.difficulty,
       DateTime.now().difference(_startOfPlay),
+      designNotifier.totalpoints.round(),
     );
 
     final playerProgress = context.read<PlayerProgress>();
