@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:green_oasis/components/core.dart';
 import 'package:green_oasis/components/design_selector.dart';
-import 'package:green_oasis/components/design_selectors.dart';
 import 'package:green_oasis/components/designer.dart';
 import 'package:green_oasis/lost_game/lose_game_screen.dart';
 import 'package:provider/provider.dart';
@@ -54,7 +53,10 @@ final router = GoRouter(
                     //   key: const Key('play session'),
                     // ),
                     
-                    child: DesignSelector(designNotifier: designNotifier,key: const Key('play geame')),
+                    child: DesignSelector(
+                      designNotifier: designNotifier,
+                      key: const Key('play geame'),
+                      level: level,),
                   );
                 },
               ),
@@ -69,7 +71,10 @@ final router = GoRouter(
                   return buildMyTransition<void>(
                     key: const ValueKey('designer-level'),
                     color: context.watch<Palette>().backgroundPlaySession,
-                    child: DesignSelector(designNotifier: designNotifier,key: const Key('play geame'))
+                    child:  DesignSelector(
+                      designNotifier: designNotifier,
+                      key: const Key('play geame'),
+                      level: level,),
                   );
                 },
               ),
@@ -131,13 +136,14 @@ final router = GoRouter(
           builder: (context, state) =>
               const SettingsScreen(key: Key('settings')),
         ),
-        GoRoute(
-          path: 'design-selector',
-          builder: (context, state){
-             final designNotifier = DesignModel();
-             return   DesignSelector(key: const Key('design selector'), designNotifier: designNotifier);
-          }
-        ),
+        // GoRoute(
+        //   path: 'design-selector',
+        //   builder: (context, state){
+        //      final designNotifier = DesignModel();
+        //      return   DesignSelector(key: const Key('design selector'), 
+        //      designNotifier: designNotifier);
+        //   }
+        // ),
         
         // GoRoute(
         //   path: 'designer/:level',

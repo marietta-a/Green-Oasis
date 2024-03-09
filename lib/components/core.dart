@@ -1,5 +1,6 @@
 
 
+import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
 import 'package:green_oasis/helpers/helpers.dart';
 import 'package:green_oasis/level_selection/levels.dart';
@@ -68,11 +69,31 @@ class DesignModel with ChangeNotifier {
    GameLevel level = gameLevels[1];
    List<MyAnimatableElement> plants = [];
    List<MyAnimatableElement> houses = [];
-   double points = Helpers.points;
+   double points = 0;
+   double totalpoints = 0;
+   bool pointsGained = false;
+   List<GameDecoration> gameDecorationComponents = [];
+   
 
 
-  String getPointText(){
-     return "Points $points";
+  void setGameDecorationComponents(List<GameDecoration> components){
+    gameDecorationComponents.addAll(components);
+    notifyListeners();
+  }
+
+  void addGameDecorationComponent(GameDecoration component){
+      gameDecorationComponents.add(component);
+      notifyListeners();
+  }
+
+  void clearGameDecorationComponents(){
+      gameDecorationComponents.clear();
+      notifyListeners();
+  }
+
+  void setPointsGained(bool b){
+      pointsGained = b;
+      notifyListeners();
   }
 
   void setGameLevel(GameLevel level){
@@ -80,10 +101,10 @@ class DesignModel with ChangeNotifier {
     notifyListeners();
   }
 
-  double setPoints(double points){
-     Helpers.points += points;
-     points = Helpers.points;
-     return points;
+  void setPoints(double points){
+     this.points = points;
+     this.totalpoints += points;
+     notifyListeners();
   }
 
   void clearPlants() {

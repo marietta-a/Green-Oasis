@@ -1,9 +1,12 @@
 
 import 'dart:math';
 import 'dart:ui';
+import 'package:bonfire/decoration/decoration.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+import 'package:green_oasis/components/core.dart';
+
 
 class Helpers{
   const Helpers();
@@ -29,23 +32,6 @@ class Helpers{
   //Syles
   Color get cardColor =>  const Color(0xffeeee00);
 
-  static double points = 0;
-
-  double evaluatePoint(Vector2 parentPosition, Vector2 parentSize, Vector2 itemPosition, Vector2 itemSize, {bool isFake = false}){
-    var parentX = parentPosition.x + parentSize.x;
-    var parentY = parentPosition.y + parentSize.y;
-    var childX = itemPosition.x + itemSize.x;
-    var childY = itemSize.y + itemSize.y;
-    var isValidX = childX >= parentPosition.x && childX <= parentX;
-    var isValidY = childY >= parentPosition.y && childY <= parentY;
-    double points = 0;
-
-    if(isValidX && isValidY){
-      points = isFake ? -10 : 20;
-    }
-
-    return points;
- }
 
   Future<dynamic> openCustomDialog(BuildContext context,  String title, String content, Color color) async{
      return  showGeneralDialog(
@@ -53,7 +39,7 @@ class Helpers{
         transitionBuilder: (context, a1, a2, widget) {
           final curvedValue = Curves.easeInOutBack.transform(a1.value) -   1.0;
           return Transform(
-            transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
+            transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0), 
             child: Opacity(
               opacity: a1.value,
               child: AlertDialog(
@@ -92,6 +78,14 @@ class Helpers{
         }
       );
   }
+}
+
+class GamePoints{
+  GamePoints();
+  bool hasNegative = false;
+  bool hasPositive = false;
+  bool get shouldCompute => !hasNegative ||  !hasPositive;
+  int id = -1;
 }
 
 

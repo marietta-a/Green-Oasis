@@ -3,6 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:green_oasis/components/core.dart';
 import 'package:green_oasis/pages/drag/conservation_drag.dart';
+import 'package:green_oasis/pages/drag/flower1_drag.dart';
+import 'package:green_oasis/pages/drag/flower2_drag.dart';
+import 'package:green_oasis/pages/drag/flower3_drag.dart';
+import 'package:green_oasis/pages/drag/flower4_drag.dart';
+import 'package:green_oasis/pages/drag/flower5_drag.dart';
+import 'package:green_oasis/pages/drag/flower6_drag.dart';
+import 'package:green_oasis/pages/drag/flower7_drag.dart';
+import 'package:green_oasis/pages/drag/flower8_drag.dart';
+import 'package:green_oasis/pages/drag/flower_art1_drag.dart.dart';
+import 'package:green_oasis/pages/drag/flower_art2_drag.dart.dart';
+import 'package:green_oasis/pages/drag/flower_art3_drag.dart.dart';
+import 'package:green_oasis/pages/drag/flower_drag.dart';
 
 class DragGesturePage extends StatelessWidget {
   final DesignModel designNotifier;
@@ -35,139 +47,79 @@ class DragGesturePage extends StatelessWidget {
               position: Vector2(tileSize * 9, tileSize * 1),
             ),
             FlowerDrag(
-              position: Vector2(tileSize * 0, tileSize * 0),
+              childPosition: Vector2(tileSize * 0, tileSize * 0),
               parentPosition: soilVector,
-              parentSize: soilComponent.size, 
-              onDragEnd: (){
-                designNotifier.setPoints(10);
-              },
+              parentSize: soilComponent.size,
               designNotifier: designNotifier
             ),
-            // FlowerArtificialDrag(
-            //   position: Vector2(tileSize * 0, tileSize * 8),
-            //   parentPosition: soilVector,
-            //   parentSize: soilComponent.size
-            // ),
-            // Flower1Drag(
-            //   position: Vector2(tileSize * 0, tileSize * 2),
-            //   parentPosition: soilVector,
-            //   parentSize: soilComponent.size
-            // ),
-            // Flower2Drag(
-            //   position: Vector2(tileSize * 0, tileSize * 4),
-            //   parentPosition: soilVector,
-            //   parentSize: soilComponent.size
-            // ),
-            // Flower4Drag(
-            //   position: Vector2(tileSize * 0, tileSize * 6),
-            //   parentPosition: soilVector,
-            //   parentSize: soilComponent.size
-            // ),
-            // Flower5Drag(
-            //   position: Vector2(tileSize * 13, tileSize * 0),
-            //   parentPosition: soilVector,
-            //   parentSize: soilComponent.size
-            // ),
-            // Flower6Drag(
-            //   position: Vector2(tileSize * 13, tileSize * 2),
-            //   parentPosition: soilVector,
-            //   parentSize: soilComponent.size
-            // ),
-            // FlowerArtificial1Drag(
-            //   position: Vector2(tileSize * 13, tileSize * 4),
-            //   parentPosition: soilVector,
-            //   parentSize: soilComponent.size
-            // ),
-            // FlowerArtificial2Drag(
-            //   position: Vector2(tileSize * 13, tileSize * 6),
-            //   parentPosition: soilVector,
-            //   parentSize: soilComponent.size
-            // ),
-            // Flower3Drag(
-            //   position: Vector2(tileSize * 13, tileSize * 8),
-            //   parentPosition: soilVector,
-            //   parentSize: soilComponent.size
-            // ),
-            
+            Flower1Drag(
+              childPosition: Vector2(tileSize * 0, tileSize * 2),
+              parentPosition: soilVector,
+              parentSize: soilComponent.size,
+              designNotifier: designNotifier
+            ),
+            FlowerArtificial1Drag(
+              childPosition: Vector2(tileSize * 0, tileSize * 4),
+              parentPosition: soilVector,
+              parentSize: soilComponent.size,
+              designNotifier: designNotifier
+            ),
+            Flower2Drag(
+              childPosition: Vector2(tileSize * 0, tileSize * 6),
+              parentPosition: soilVector,
+              parentSize: soilComponent.size,
+              designNotifier: designNotifier
+            ),
+            FlowerArtificial2Drag(
+              childPosition: Vector2(tileSize * 0, tileSize * 8),
+              parentPosition: soilVector,
+              parentSize: soilComponent.size,
+              designNotifier: designNotifier
+            ),
+            Flower3Drag(
+              childPosition: Vector2(tileSize * 0, tileSize * 10),
+              parentPosition: soilVector,
+              parentSize: soilComponent.size,
+              designNotifier: designNotifier
+            ),
+            Flower4Drag(
+              childPosition: Vector2(tileSize * 13.1, tileSize * 0),
+              parentPosition: soilVector,
+              parentSize: soilComponent.size,
+              designNotifier: designNotifier
+            ),
+            FlowerArtificial3Drag(
+              childPosition: Vector2(tileSize * 13.1, tileSize * 2),
+              parentPosition: soilVector,
+              parentSize: soilComponent.size,
+              designNotifier: designNotifier
+            ),
+            Flower5Drag(
+              childPosition: Vector2(tileSize * 13.1, tileSize * 4),
+              parentPosition: soilVector,
+              parentSize: soilComponent.size,
+              designNotifier: designNotifier
+            ),
+            Flower6Drag(
+              childPosition: Vector2(tileSize * 13.1, tileSize * 6),
+              parentPosition: soilVector,
+              parentSize: soilComponent.size,
+              designNotifier: designNotifier
+            ),
+            Flower7Drag(
+              childPosition: Vector2(tileSize * 13.1, tileSize * 8),
+              parentPosition: soilVector,
+              parentSize: soilComponent.size,
+              designNotifier: designNotifier
+            ),
+            Flower8Drag(
+              childPosition: Vector2(tileSize * 13.1, tileSize * 10),
+              parentPosition: soilVector,
+              parentSize: soilComponent.size,
+              designNotifier: designNotifier
+            ),
           ],
       );
-      // return Scaffold(
-      //   backgroundColor: Colors.green,
-      //   body:  Expanded(
-      //           child: LayoutBuilder(
-      //                   builder: (BuildContext context, BoxConstraints viewportConstraints) {
-                          
-
-      //                     return SingleChildScrollView(
-      //                       child: ConstrainedBox(
-      //                         constraints: BoxConstraints(
-      //                           minHeight: viewportConstraints.minHeight,
-      //                           minWidth: viewportConstraints.minWidth
-      //                         ),
-      //                         child: Row(
-      //                           children: [
-      //                             // Row(
-      //                             //   // mainAxisSize: MainAxisSize.min,
-      //                             //   // mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //                             //   // direction: Axis.horizontal,
-                                  
-      //                             //   children: <Widget>[
-      //                             //     Container(
-      //                             //       // A fixed-height child.
-      //                             //       color: helpers.cardColor, // Yellow
-      //                             //       height: viewportConstraints.minHeight,
-      //                             //       alignment: Alignment.center,
-      //                             //       child: HouseDesigner(designNotifier: designNotifier)
-      //                             //     ),
-      //                             //     Container(
-      //                             //       // Another fixed-height child.
-      //                             //       color: helpers.cardColor, // Green
-      //                             //       height: viewportConstraints.minHeight,
-      //                             //       alignment: Alignment.center,
-      //                             //       child: PlantDesigner(designNotifier: designNotifier)
-      //                             //     ),
-      //                             //   ],
-      //                             // ),
-      //                             Container(
-      //                               // direction: Axis.horizontal,
-      //                                 child: BonfireWidget(
-      //                                   map: WorldMapByTiled(
-      //                                     // TiledReader.asset('tiled/tiled_example.tmj'),
-      //                                     TiledReader.asset('tiled/punnyworld/simple_map.tmj'),
-      //                                   ),
-      //                                   cameraConfig: CameraConfig(
-      //                                     zoom: getZoomFromMaxVisibleTile(context, tileSize, 30),
-      //                                     initPosition: Vector2(tileSize * 5, tileSize * 7),
-      //                                   ),
-      //                                   components: [
-      //                                     // BarrelDrag(
-      //                                     //   position: Vector2(tileSize * 5, tileSize * 5),
-      //                                     // ),
-      //                                     HouseDrag(
-      //                                       position: Vector2(tileSize * 5, tileSize * 5),
-      //                                     ),
-      //                                     PlantDrag(
-      //                                       position: Vector2(tileSize * 4.7, tileSize * 4.7),
-      //                                     ),
-      //                                     Plant1Drag(
-      //                                       position: Vector2(tileSize * 4.6, tileSize * 4.6),
-      //                                     ),
-      //                                     PlantDrag(
-      //                                       position: Vector2(tileSize * 4.5, tileSize * 4.5),
-      //                                     ),
-                                          
-      //                                   ],
-      //                               ),
-      //                             )
-      //                           ],
-      //                         )
-      //                       ),
-      //                     );
-      //                   },
-      //                 ),
-      //         ),
-      //     );
-    
     }
   
 }

@@ -1,27 +1,34 @@
 
 import 'dart:async';
 
+import 'package:flame/components.dart';
 import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:green_oasis/audio/audio_controller.dart';
+import 'package:green_oasis/audio/sounds.dart';
 import 'package:green_oasis/components/core.dart';
-import 'package:green_oasis/components/design_selectors.dart';
 import 'package:green_oasis/components/designer.dart';
+import 'package:green_oasis/game_internals/level_state.dart';
+import 'package:green_oasis/game_internals/score.dart';
 import 'package:green_oasis/helpers/enums.dart';
 import 'package:green_oasis/helpers/helpers.dart';
 import 'package:green_oasis/level_selection/levels.dart';
+import 'package:green_oasis/pages/drag/conservation_drag.dart';
 import 'package:green_oasis/pages/drag/drag_gesture_page.dart';
+import 'package:green_oasis/player_progress/player_progress.dart';
 import 'package:green_oasis/settings/settings.dart';
 import 'package:green_oasis/style/my_button.dart';
 import 'package:green_oasis/style/palette.dart';
 import 'package:green_oasis/style/responsive_screen.dart';
+import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
 class DesignSelector extends StatefulWidget{
-  DesignSelector({super.key, required this.designNotifier});
+  DesignSelector({super.key, required this.designNotifier, required this.level});
   final DesignModel designNotifier;
+  final GameLevel level;
   @override
   State<StatefulWidget> createState() => _DesignSelector(designNotifier);
 }
@@ -29,84 +36,178 @@ class DesignSelector extends StatefulWidget{
 class _DesignSelector extends State<DesignSelector>{
   _DesignSelector(this.designNotifier);
   final DesignModel designNotifier;
+  static final _log = Logger('PlaySessionScreen');
+
+  static const _celebrationDuration = Duration(milliseconds: 2000);
+
+  static const _preCelebrationDuration = Duration(milliseconds: 500);
+
+  bool _duringCelebration = false;
+  late LevelState levelState = LevelState(onWin: _playerWon,
+   onLose: _playerLost, 
+   goal: this.widget.level.difficulty);
+
+  late DateTime _startOfPlay;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _startOfPlay = DateTime.now();
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    final palette = context.watch<Palette>();
-    final settingsController = context.watch<SettingsController>();
-    final audioController = context.watch<AudioController>();
-    final helpers = Helpers();
-    var points = designNotifier.points;
+    // final palette = context.watch<Palette>();
+    // final settingsController = context.watch<SettingsController>();
+    // final audioController = context.watch<AudioController>();
+    // final helpers = Helpers();
 
-    return Scaffold(
-        backgroundColor: palette.backgroundLevelSelection,
-        body: ResponsiveScreen(
-          squarishMainArea: Column(
-            children: [
-               Padding(
-                padding: const EdgeInsets.all(6),
-                child: Center(
-                  child: Column(
-                    children: [
-                      const Text(
-                            'To create your garden, drag and drop flowers on the soil. You earn points from planting flowers',
-                            style:
-                                TextStyle(fontFamily: 'Permanent Marker', fontSize: 30),
-                          ),
-                      Text(
-                        'Score $points',
-                        style: const TextStyle(
-                           backgroundColor: Colors.blue,
-                           color: Colors.white,
-                           fontSize: 24
-                          ),
-                      )
-                    ],
-                  )
-                ),
-              ),
-              Expanded(
-                child: ListenableBuilder(
-                        listenable: designNotifier,
-                        builder: (context,  widget) {
-                        
-                        const levelNumber = 1;
-                        final level =  gameLevels.singleWhere((e) => e.number == levelNumber);
-
-                          return   DragGesturePage(designNotifier: designNotifier,);
-                  }
-                )
-             ),
-            ]
-          ),
-          rectangularMenuArea: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              MyButton(
-                onPressed: () {
-                  GoRouter.of(context).go('/designer');
-                },
-                child: const Text('Start Design'),
-              ),
-              _gap,
-              MyButton(
-                onPressed: () => GoRouter.of(context).go('/'),
-                child: const Text('Back'),
-              ),
-            ],
+   return MultiProvider(
+      providers: [
+        Provider.value(value: widget.level),
+        // Create and provide the [LevelState] object that will be used
+        // by widgets below this one in the widget tree.
+        ChangeNotifierProvider(
+          create: (context) => LevelState(
+            goal: widget.level.difficulty,
+            onWin: _playerWon,
+            onLose: _playerLost
           ),
         ),
-      );
-    
-    }
+      ],
+      child: IgnorePointer( 
+        ignoring: _duringCelebration,
+        child: Scaffold( 
+          appBar: AppBar( 
+            title:  const Text(
+              'To create your garden! Drag and drop flowers on the soil',
+              style:
+                  TextStyle(fontFamily: 'Permanent Marker', fontSize: 30),
+            ),
+          ), 
+          body: ListenableBuilder(
+                listenable: designNotifier,
+                builder: (context,  widget) {
+                  
+                  levelState.setProgress(designNotifier.totalpoints.round());
+                  levelState.evaluate();
+
+                  return LayoutBuilder(
+                    builder: (BuildContext context, BoxConstraints constraints) { 
+                      return ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxHeight: constraints.maxHeight,
+                          maxWidth: constraints.maxWidth,
+                          minHeight: constraints.minHeight,
+                          minWidth: constraints.maxWidth
+                        ),
+                        child: DragGesturePage(designNotifier: designNotifier,)
+                      );
+                    },
+                  );
+              
+              },
+            ),
+          floatingActionButton: FloatingActionButton.large(
+            onPressed: () {
+
+            },
+            backgroundColor: Color.fromARGB(255, 88, 53, 214),
+            child: ListenableBuilder(
+            listenable: designNotifier,
+            builder: (context, widget){
+              return Text(
+                "Score: ${designNotifier.totalpoints}",
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.white
+                ),
+              );
+            },
+          ),
+          ),
+          // bottomNavigationBar: ListenableBuilder(
+          //   listenable: designNotifier,
+          //   builder: (context, widget){
+          //     return Text(
+          //       "Score: ${designNotifier.points}",
+          //       style: const TextStyle(
+          //         backgroundColor: Colors.green,
+          //         color: Colors.white,
+          //         fontSize: 24,
+          //       ),
+          //     );
+          //   },
+          // ) ,
+        )
+      )
+   );
+
+  }
 
   static const _gap = SizedBox(height: 10);
-}
 
-class Design{
-  Widget widget;
-  final ItemType itemType;
-  final String src;
+   Future<void> _playerLost() async {
+    _log.info('Level ${widget.level.number} failed');
 
-  Design(this.src, {required this.itemType, required this.widget});
+    final score = Score(
+      widget.level.number,
+      widget.level.difficulty,
+      DateTime.now().difference(_startOfPlay),
+      levelState.progress,
+    );
+
+    final playerProgress = context.read<PlayerProgress>();
+    playerProgress.setLevelReached(widget.level.number);
+
+    // Let the player see the game just after winning for a bit.
+    await Future<void>.delayed(_preCelebrationDuration);
+    if (!mounted) return;
+
+    setState(() {
+      _duringCelebration = true;
+    });
+
+    final audioController = context.read<AudioController>();
+    audioController.playSfx(SfxType.wssh);
+
+    /// Give the player some time to see the celebration animation.
+    await Future<void>.delayed(_celebrationDuration);
+    if (!mounted) return;
+
+    GoRouter.of(context).go('/play/lost', extra: {'score': score});
+  }
+
+  Future<void> _playerWon() async {
+    _log.info('Level ${widget.level.number} won');
+
+    final score = Score(
+      widget.level.number,
+      widget.level.difficulty,
+      DateTime.now().difference(_startOfPlay),
+      levelState.progress,
+    );
+
+    final playerProgress = context.read<PlayerProgress>();
+    playerProgress.setLevelReached(widget.level.number);
+
+    // Let the player see the game just after winning for a bit.
+    await Future<void>.delayed(_preCelebrationDuration);
+    if (!mounted) return;
+
+    setState(() {
+      _duringCelebration = true;
+    });
+
+    final audioController = context.read<AudioController>();
+    audioController.playSfx(SfxType.congrats);
+
+    /// Give the player some time to see the celebration animation.
+    await Future<void>.delayed(_celebrationDuration);
+    if (!mounted) return;
+
+    GoRouter.of(context).go('/play/won', extra: {'score': score});
+  }
 }

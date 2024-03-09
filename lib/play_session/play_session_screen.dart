@@ -134,7 +134,9 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
     final score = Score(
       widget.level.number,
       widget.level.difficulty,
-      DateTime.now().difference(_startOfPlay),
+      DateTime.now().difference(_startOfPlay),      
+      widget.level.difficulty,
+
     );
 
     final playerProgress = context.read<PlayerProgress>();
@@ -165,6 +167,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
       widget.level.number,
       widget.level.difficulty,
       DateTime.now().difference(_startOfPlay),
+      widget.level.difficulty,
     );
 
     final playerProgress = context.read<PlayerProgress>();
