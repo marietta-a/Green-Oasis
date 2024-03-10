@@ -83,6 +83,8 @@ class FlowerArtificial2Drag extends GameDecoration
 
 }
 
+
+
   Future<void> evaluatePoint(Vector2 parentPosition,
    Vector2 parentSize, 
    Vector2 itemPosition, 
@@ -97,6 +99,7 @@ class FlowerArtificial2Drag extends GameDecoration
     var isValidX = childX >= parentPosition.x && childX <= parentX;
     var isValidY = childY >= parentPosition.y && childY <= parentY;
     double points = 0;
+    String hintText = "Hint";
     
     if(isValidX && isValidY){
       points = isFake ? -10 : 20;
@@ -121,24 +124,27 @@ class FlowerArtificial2Drag extends GameDecoration
       totalpoints += points;
 
       if(pointsGained){
-       await helpers.openCustomDialog(
-          context, 
-          "Bravo!!!", 
-          "You Gained ${points}", 
-          Colors.green
-        );
+        hintText = "Bravo!!! \n +${points} points";
+      //  await helpers.openCustomDialog(
+      //     context, 
+      //     "Bravo!!!", 
+      //     "You Gained ${points}", 
+      //     Colors.green
+      //   );
       }
       else{
-        await helpers.openCustomDialog(
-          context, 
-          "Oopss!!!", 
-          isFake? "You Lost ${points} (Use natural flowers)" : "You Lost ${points} (Place on soil)", 
-          Colors.red
-        );
+        hintText = "Oopss!!! \n";
+        hintText += isFake? "-${points} (Use natural flowers)" : "-${points} (Place on soil)";
+        // await helpers.openCustomDialog(
+        //   context, 
+        //   "Oopss!!!", 
+        //   isFake? "You Lost ${points} (Use natural flowers)" : "You Lost ${points} (Place on soil)", 
+        //   Colors.red
+        // );
       }
-    
-     designNotifier.setPoints(points);  
-  }
 
+     designNotifier.setHintText(hintText);
+     designNotifier.setPoints(points);
+  }
 }
   

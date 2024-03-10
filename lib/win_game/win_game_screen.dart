@@ -4,6 +4,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:green_oasis/components/core.dart';
+import 'package:green_oasis/level_selection/levels.dart';
+import 'package:green_oasis/player_progress/player_progress.dart';
 import 'package:provider/provider.dart';
 
 import '../game_internals/score.dart';
@@ -22,6 +25,9 @@ class WinGameScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = context.watch<Palette>();
+    final playerProgress = context.read<PlayerProgress>();
+    final designNotifier = context.watch<DesignModel>();
+    final designModel = context.read<DesignModel>();
 
     const gap = SizedBox(height: 10);
 
@@ -50,13 +56,40 @@ class WinGameScreen extends StatelessWidget {
             ),
           ],
         ),
-        rectangularMenuArea: MyButton(
-          onPressed: () {
-            GoRouter.of(context).go('/play');
-          },
-          child: const Text('Continue'),
-        ),
+        rectangularMenuArea:  Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              // MyGoogleWalletPage(title: 'Premium Subscription',),
+              
+              MyButton(
+                onPressed: () {
+                  // GoRouter.of(context).go('/play');
+                  final nextLevelNumber = designModel.level.number + 1;
+                  if(nextLevelNumber < gameLevels.length){
+                    final level = gameLevels[designModel.level.number];
+                    designNotifier.setGameLevel(level);
+                    GoRouter.of(context).go('/play/session/${nextLevelNumber}');
+                  }
+                  else{
+                    GoRouter.of(context).go('/play');
+                  }
+                },
+                child: const Text('Continue'),
+              ),
+              _gap,
+              MyButton(
+                onPressed: () {
+                  // GoRouter.of(context).go('/play');
+                  GoRouter.of(context).go('/');
+                },
+                child: const Text('Home'),
+              ),
+            ],
+          ),
       ),
     );
   }
+
+  
+  static const _gap = SizedBox(height: 10);
 }

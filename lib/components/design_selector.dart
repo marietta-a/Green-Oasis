@@ -38,16 +38,18 @@ class _DesignSelector extends State<DesignSelector>{
   final DesignModel designNotifier;
   static final _log = Logger('PlaySessionScreen');
 
-  static const _celebrationDuration = Duration(milliseconds: 2000);
+  static const _celebrationDuration = Duration(milliseconds: 500);
 
-  static const _preCelebrationDuration = Duration(milliseconds: 500);
-
+  static const _preCelebrationDuration = Duration(milliseconds: 100);
+  
+  late bool butterliesUpdated = false;
   bool _duringCelebration = false;
   late LevelState levelState = LevelState(onWin: _playerWon,
    onLose: _playerLost, 
    goal: this.widget.level.difficulty);
 
   late DateTime _startOfPlay;
+  late final playerProgress = context.read<PlayerProgress>();
 
   @override
   void initState() {
@@ -56,13 +58,18 @@ class _DesignSelector extends State<DesignSelector>{
     _startOfPlay = DateTime.now();
   }
 
+  showButterflyDialog(){
+      helpers.openCustomDialog(context, "Hurray!!!", "You've unlocked butterflies", Colors.green);
+  }
+
 
   @override
   Widget build(BuildContext context) {
     // final palette = context.watch<Palette>();
     // final settingsController = context.watch<SettingsController>();
-    // final audioController = context.watch<AudioController>();
+    final audioController = context.watch<AudioController>();
     // final helpers = Helpers();
+    final currentLevelState = context.read<DesignModel>();
 
    return MultiProvider(
       providers: [
@@ -81,8 +88,8 @@ class _DesignSelector extends State<DesignSelector>{
         ignoring: _duringCelebration,
         child: Scaffold( 
           appBar: AppBar( 
-            title:  const Text(
-              'To create your garden! Drag and drop flowers on the soil',
+            title: Text(
+              'Level: ${currentLevelState.level.number} (Drag and drop flowers on the soil)',
               style:
                   TextStyle(fontFamily: 'Permanent Marker', fontSize: 30),
             ),
@@ -93,7 +100,8 @@ class _DesignSelector extends State<DesignSelector>{
                   
                   levelState.setProgress(designNotifier.totalpoints.round());
                   levelState.evaluate();
-
+                  
+  
                   return LayoutBuilder(
                     builder: (BuildContext context, BoxConstraints constraints) { 
                       return ConstrainedBox(
@@ -103,44 +111,70 @@ class _DesignSelector extends State<DesignSelector>{
                           minHeight: constraints.minHeight,
                           minWidth: constraints.maxWidth
                         ),
-                        child: DragGesturePage(designNotifier: designNotifier,)
+                        child: DragGesturePage(designNotifier: designNotifier,),
                       );
                     },
                   );
               
               },
             ),
-          floatingActionButton: FloatingActionButton.large(
-            onPressed: () {
+          
+          floatingActionButton: Container(
+            height: 100,
+            width: 200,
+            decoration:  BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: Colors.brown,
+              boxShadow: [
+                  BoxShadow(color: Colors.brown, spreadRadius: 3),
+              ],
+            ),
+            // onPressed: () {
 
-            },
-            backgroundColor: Color.fromARGB(255, 88, 53, 214),
+            // },
+            // backgroundColor: Color.fromARGB(255, 88, 53, 214),
             child: ListenableBuilder(
             listenable: designNotifier,
             builder: (context, widget){
               return Text(
-                "Score: ${designNotifier.totalpoints}",
+                "${designNotifier.hintText}",
                 style: const TextStyle(
-                  fontSize: 18,
+                  fontSize: 16,
                   color: Colors.white
                 ),
               );
             },
           ),
           ),
-          // bottomNavigationBar: ListenableBuilder(
-          //   listenable: designNotifier,
-          //   builder: (context, widget){
-          //     return Text(
-          //       "Score: ${designNotifier.points}",
-          //       style: const TextStyle(
-          //         backgroundColor: Colors.green,
-          //         color: Colors.white,
-          //         fontSize: 24,
-          //       ),
-          //     );
-          //   },
-          // ) ,
+          bottomSheet: ListenableBuilder(
+            listenable: designNotifier,
+            builder: (context, widget){
+              return AnimatedContainer(
+                // width: selected ? 200.0 : 100.0,
+                // height: selected ? 100.0 : 200.0,
+                color: designNotifier.pointsGained ? Colors.green : Colors.red,
+                duration: const Duration(seconds: 2),
+                curve: Curves.fastOutSlowIn,
+                child:  Container(
+                  decoration:  BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.white,
+                    boxShadow: [
+                        BoxShadow(color: Color.fromARGB(255, 2, 91, 136), spreadRadius: 3),
+                    ],
+                  ),
+                  child: Text(
+                    "Score: ${designNotifier.totalpoints}",
+                    style: const TextStyle(
+                      backgroundColor: Color.fromARGB(255, 2, 91, 136),
+                      color: Colors.white,
+                      fontSize: 24,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ) ,
         )
       )
    );
@@ -159,8 +193,8 @@ class _DesignSelector extends State<DesignSelector>{
       levelState.progress,
     );
 
-    final playerProgress = context.read<PlayerProgress>();
-    playerProgress.setLevelReached(widget.level.number);
+    // final playerProgress = context.read<PlayerProgress>();
+    playerProgress.setLevelReached(widget.level.number - 1);
 
     // Let the player see the game just after winning for a bit.
     await Future<void>.delayed(_preCelebrationDuration);
@@ -182,16 +216,16 @@ class _DesignSelector extends State<DesignSelector>{
 
   Future<void> _playerWon() async {
     _log.info('Level ${widget.level.number} won');
-
-    final score = Score(
+   final score = Score(
       widget.level.number,
       widget.level.difficulty,
       DateTime.now().difference(_startOfPlay),
       levelState.progress,
     );
 
-    final playerProgress = context.read<PlayerProgress>();
+    // final playerProgress = context.read<PlayerProgress>();
     playerProgress.setLevelReached(widget.level.number);
+    print("highest progress: ${playerProgress.highestLevelReached}");
 
     // Let the player see the game just after winning for a bit.
     await Future<void>.delayed(_preCelebrationDuration);
@@ -202,7 +236,7 @@ class _DesignSelector extends State<DesignSelector>{
     });
 
     final audioController = context.read<AudioController>();
-    audioController.playSfx(SfxType.congrats);
+    audioController.playSfx(SfxType.wssh);
 
     /// Give the player some time to see the celebration animation.
     await Future<void>.delayed(_celebrationDuration);

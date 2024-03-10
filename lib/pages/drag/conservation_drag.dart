@@ -1,11 +1,15 @@
 import 'dart:async';
+import 'dart:js';
 import 'dart:ui';
 
 import 'package:bonfire/bonfire.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:green_oasis/components/core.dart';
 import 'package:green_oasis/helpers/helpers.dart';
+import 'package:green_oasis/pages/drag/drag_gesture_page.dart';
 import 'package:green_oasis/shared/util/conservation_sprite.dart';
+import 'package:provider/provider.dart';
 
 
 final spriteSize = Vector2.all(25);
@@ -115,7 +119,7 @@ class House2Drag extends GameDecoration with DragGesture, Movement {
 
 class SoilDrag extends GameDecoration {
   late TextPaint _textPaint;
-  final String text = 'Soil';
+  final String text = 'Garden';
   SoilDrag({required super.position})
       : super.withSprite(
           sprite: ConservationSpriteSheet.soilSprite,
@@ -131,7 +135,7 @@ class SoilDrag extends GameDecoration {
   void _addsText() {
     _textPaint = TextPaint(
       style: TextStyle(
-        fontSize: size.x / 4,
+        fontSize: 8,
         color: Colors.white,
       ),
     );
@@ -139,9 +143,22 @@ class SoilDrag extends GameDecoration {
     add(
       TextComponent(
         text: text,
-        position: Vector2((textSize.x / -2) + size.x / 2, -5),
+        // position: Vector2((textSize.x / -2) + size.x / 2, -5),
+        position: Vector2(soilVector.x - (tileSize * 2.5), soilVector.y + (tileSize)),
         textRenderer: _textPaint,
       ),
     );
   }
+}
+
+
+class ButterflyDrag extends GameDecoration{
+  final DesignModel designNotifier;
+  ButterflyDrag({required super.position, required this.designNotifier})
+      : super.withSprite(
+          sprite: ConservationSpriteSheet.butterflySprite,
+          size: Vector2.all(16),
+          renderAboveComponents: true,
+        );
+
 }

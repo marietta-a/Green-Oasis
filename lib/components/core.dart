@@ -2,6 +2,7 @@
 
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
+import 'package:green_oasis/components/design_selectors.dart';
 import 'package:green_oasis/helpers/helpers.dart';
 import 'package:green_oasis/level_selection/levels.dart';
 
@@ -66,19 +67,37 @@ class _Element extends State<MyAnimatableElement>
 
 
 class DesignModel with ChangeNotifier {
-   GameLevel level = gameLevels[1];
+   GameLevel level = gameLevels[0];
    List<MyAnimatableElement> plants = [];
    List<MyAnimatableElement> houses = [];
    double points = 0;
    double totalpoints = 0;
+   double get butterCutOffPoint => 50;
    bool pointsGained = false;
    List<GameDecoration> gameDecorationComponents = [];
-   
+   bool showButterflies = true;
+   String hintText = "Hint: More details about points gain/loss";
 
 
   void setGameDecorationComponents(List<GameDecoration> components){
     gameDecorationComponents.addAll(components);
     notifyListeners();
+  }
+  
+  void setShowButterflies(bool b){
+     showButterflies = b;
+     notifyListeners();
+  }
+
+  void setHintText(String text){
+    hintText = text;
+    notifyListeners();
+  }
+  showButterflyDialog(BuildContext context){
+    if(totalpoints >= butterCutOffPoint && showButterflies){
+      helpers.openCustomDialog(context, "Hurray!!!", "You've unlocked butterflies", Colors.green);
+      showButterflies = false;
+    }
   }
 
   void addGameDecorationComponent(GameDecoration component){

@@ -7,6 +7,7 @@ import 'dart:developer' as dev;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:green_oasis/components/core.dart';
 import 'package:green_oasis/helpers/helpers.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
           Provider(create: (context) => Palette()),
           Provider(create: (context) => Helpers()),
           ChangeNotifierProvider(create: (context) => PlayerProgress()),
+          ChangeNotifierProvider(create: (context) => DesignModel()),
           // Set up audio.
           ProxyProvider2<AppLifecycleStateNotifier, SettingsController,
               AudioController>(

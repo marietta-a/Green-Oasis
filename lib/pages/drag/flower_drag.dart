@@ -4,6 +4,7 @@ import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
 import 'package:green_oasis/components/core.dart';
 import 'package:green_oasis/helpers/helpers.dart';
+import 'package:green_oasis/pages/drag/conservation_drag.dart';
 import 'package:green_oasis/shared/util/conservation_sprite.dart';
 
 final spriteSize = Vector2.all(25);
@@ -34,11 +35,15 @@ class FlowerDrag extends GameDecoration
   );
 
   final Vector2 childPosition;
-  @override
-  Future<void> onLoad() {
-     item.id = 0;
-     return super.onLoad();
-  }   
+  
+  late int butterflies = 0;
+  @override void update(double dt) {
+    if(designNotifier.totalpoints > 50 && butterflies < 1){
+      add(ButterflyDrag(position: Vector2(0,0), designNotifier: designNotifier));
+      butterflies += 1;
+    }
+    super.update(dt);
+  }
 
   @override
   bool handlerPointerUp(PointerUpEvent event) {
@@ -80,6 +85,7 @@ class FlowerDrag extends GameDecoration
 
 }
 
+
   Future<void> evaluatePoint(Vector2 parentPosition,
    Vector2 parentSize, 
    Vector2 itemPosition, 
@@ -94,6 +100,7 @@ class FlowerDrag extends GameDecoration
     var isValidX = childX >= parentPosition.x && childX <= parentX;
     var isValidY = childY >= parentPosition.y && childY <= parentY;
     double points = 0;
+    String hintText = "Hint";
     
     if(isValidX && isValidY){
       points = isFake ? -10 : 20;
@@ -118,23 +125,28 @@ class FlowerDrag extends GameDecoration
       totalpoints += points;
 
       if(pointsGained){
-       await helpers.openCustomDialog(
-          context, 
-          "Bravo!!!", 
-          "You Gained ${points}", 
-          Colors.green
-        );
+        hintText = "Bravo!!! \n +${points} points";
+      //  await helpers.openCustomDialog(
+      //     context, 
+      //     "Bravo!!!", 
+      //     "You Gained ${points}", 
+      //     Colors.green
+      //   );
       }
       else{
-        await helpers.openCustomDialog(
-          context, 
-          "Oopss!!!", 
-          isFake? "You Lost ${points} (Use natural flowers)" : "You Lost ${points} (Place on soil)", 
-          Colors.red
-        );
+        hintText = "Oopss!!! \n";
+        hintText += isFake? "-${points} (Use natural flowers)" : "-${points} (Place on soil)";
+        // await helpers.openCustomDialog(
+        //   context, 
+        //   "Oopss!!!", 
+        //   isFake? "You Lost ${points} (Use natural flowers)" : "You Lost ${points} (Place on soil)", 
+        //   Colors.red
+        // );
       }
-    
-     designNotifier.setPoints(points);  
+
+     designNotifier.setHintText(hintText);
+     designNotifier.setPoints(points);
+     designNotifier.showButterflyDialog(context);
   }
 
 }

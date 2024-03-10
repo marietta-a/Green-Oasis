@@ -72,27 +72,34 @@ class _MyGoogleWalletPage extends State<MyGoogleWalletPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            GoogleWalletButton(
-              style: GoogleWalletButtonStyle.condensed,
-              height: 90,
-              onPressed: _savePass,
-              // optionally set the locale explicitly:
-              locale: Locale("en_US"),
-            ),
-            Text(
-              _text,
-              style: TextStyle(
-                fontSize: 4,
-              ),
-            ),
-          ],
-        ),
-      ),
+    return GoogleWalletButton(
+      style: GoogleWalletButtonStyle.condensed,
+      height: 90,
+      onPressed: _savePass,
+      // optionally set the locale explicitly:
+      locale: Locale("en_US"),
     );
+    // return Material(
+    //   child: Center(
+    //     child: Column(
+    //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //       children: [
+    //         GoogleWalletButton(
+    //           style: GoogleWalletButtonStyle.condensed,
+    //           height: 90,
+    //           onPressed: _savePass,
+    //           // optionally set the locale explicitly:
+    //           locale: Locale("en_US"),
+    //         ),
+    //         Text(
+    //           _text,
+    //           style: TextStyle(
+    //             fontSize: 4,
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 }

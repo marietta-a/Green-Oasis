@@ -25,5 +25,7 @@ class ConservationSpriteSheet {
   
   static Future<Sprite> get soilSprite => Sprite.load('conservation/soil.png');
 
+  static Future<Sprite> get butterflySprite => Sprite.load('conservation/butterfly1.png');
+
   static Future<Sprite> get scoreSprite => Sprite.load('conservation/score.png');
 }
