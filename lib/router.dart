@@ -5,8 +5,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:green_oasis/components/core.dart';
-import 'package:green_oasis/components/design_selector.dart';
+import 'package:green_oasis/components/Level1_page.dart';
 import 'package:green_oasis/components/designer.dart';
+import 'package:green_oasis/components/leve2_page.dart';
+import 'package:green_oasis/components/leve3_page.dart';
 import 'package:green_oasis/lost_game/lose_game_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -53,28 +55,18 @@ final router = GoRouter(
                     //   key: const Key('play session'),
                     // ),
                     
-                    child: DesignSelector(
+                    child: level == 1 ?
+                           Level1Page(
                       designNotifier: designNotifier,
                       key: const Key('play geame'),
-                      level: level,),
-                  );
-                },
-              ),
-              GoRoute(
-                path: 'designer/:level',
-                pageBuilder: (context, state) {
-                  final designNotifier = DesignModel();
-                  // final levelNumber = int.parse(state.pathParameters['level']!);
-                  final levelNumber = int.parse(state.pathParameters['level']!);
-                  final level =
-                      gameLevels.singleWhere((e) => e.number == levelNumber);
-                  return buildMyTransition<void>(
-                    key: const ValueKey('designer-level'),
-                    color: context.watch<Palette>().backgroundPlaySession,
-                    child:  DesignSelector(
+                      level: level,) :
+                      (level == 2 ? Level2Page(
                       designNotifier: designNotifier,
                       key: const Key('play geame'),
-                      level: level,),
+                      level: level,) : Level3Page(
+                      designNotifier: designNotifier,
+                      key: const Key('play geame'),
+                      level: level,) ),
                   );
                 },
               ),

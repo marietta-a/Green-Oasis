@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:green_oasis/components/core.dart';
 import 'package:green_oasis/helpers/helpers.dart';
 import 'package:green_oasis/pages/drag/drag_gesture_page.dart';
+import 'package:green_oasis/shared/util/common_sprite_sheet.dart';
 import 'package:green_oasis/shared/util/conservation_sprite.dart';
 import 'package:provider/provider.dart';
 
@@ -151,14 +152,36 @@ class SoilDrag extends GameDecoration {
   }
 }
 
-
-class ButterflyDrag extends GameDecoration{
+class ButterflyDrag extends AnimatedGameObject{
   final DesignModel designNotifier;
   ButterflyDrag({required super.position, required this.designNotifier})
-      : super.withSprite(
-          sprite: ConservationSpriteSheet.butterflySprite,
-          size: Vector2.all(16),
-          renderAboveComponents: true,
-        );
+      : super(
+        size: Vector2.all(16),
+        renderAboveComponents: true,
+      );
+
+  @override
+  Future<void> onLoad() async {
+    // final component  = SpriteAnimationComponent();
+    // component.animation = await CommonSpriteSheet.butterflyAnimation;
+    final component = SpriteAnimationComponent(
+     animation: await CommonSpriteSheet.butterflyAnimation,
+     position: position,
+    //  size: Vector2.all(16),
+    );
+    add(component);
+    sprite = await ConservationSpriteSheet.butterflySprite;
+  }
 
 }
+
+// class ButterflyDrag extends GameDecoration{
+//   final DesignModel designNotifier;
+//   ButterflyDrag({required super.position, required this.designNotifier})
+//       : super.withSprite(
+//           sprite: ConservationSpriteSheet.butterflySprite,
+//           size: Vector2.all(16),
+//           renderAboveComponents: true,
+//         );
+
+// }

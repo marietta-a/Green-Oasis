@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\lib",
+    "\\lib\\pages",
+    "\\lib\\pages\\drag",
+    "\\lib\\shared",
+    "\\lib\\shared\\util"
+  ],
+  "SelectedNode": "\\lib\\shared\\util\\common_sprite_sheet.dart",
+  "PreviewInSolutionExplorer": false
+}

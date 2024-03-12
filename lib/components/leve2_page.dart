@@ -17,6 +17,7 @@ import 'package:green_oasis/helpers/helpers.dart';
 import 'package:green_oasis/level_selection/levels.dart';
 import 'package:green_oasis/pages/drag/conservation_drag.dart';
 import 'package:green_oasis/pages/drag/drag_gesture_page.dart';
+import 'package:green_oasis/pages/drag/drag_gesture_page1.dart';
 import 'package:green_oasis/player_progress/player_progress.dart';
 import 'package:green_oasis/settings/settings.dart';
 import 'package:green_oasis/style/my_button.dart';
@@ -25,16 +26,16 @@ import 'package:green_oasis/style/responsive_screen.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
-class DesignSelector extends StatefulWidget{
-  DesignSelector({super.key, required this.designNotifier, required this.level});
+class Level2Page extends StatefulWidget{
+  Level2Page({super.key, required this.designNotifier, required this.level});
   final DesignModel designNotifier;
   final GameLevel level;
   @override
-  State<StatefulWidget> createState() => _DesignSelector(designNotifier);
+  State<StatefulWidget> createState() => _Level2Page(designNotifier);
 }
 
-class _DesignSelector extends State<DesignSelector>{
-  _DesignSelector(this.designNotifier);
+class _Level2Page extends State<Level2Page>{
+  _Level2Page(this.designNotifier);
   final DesignModel designNotifier;
   static final _log = Logger('PlaySessionScreen');
 
@@ -111,7 +112,7 @@ class _DesignSelector extends State<DesignSelector>{
                           minHeight: constraints.minHeight,
                           minWidth: constraints.maxWidth
                         ),
-                        child: DragGesturePage(designNotifier: designNotifier,),
+                        child:  DragGesturePage1(designNotifier: designNotifier,),
                       );
                     },
                   );
