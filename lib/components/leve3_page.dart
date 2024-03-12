@@ -71,7 +71,8 @@ class _Level3Page extends State<Level3Page>{
     final audioController = context.watch<AudioController>();
     // final helpers = Helpers();
     final currentLevelState = context.read<DesignModel>();
-
+    
+ 
    return MultiProvider(
       providers: [
         Provider.value(value: widget.level),
@@ -99,8 +100,9 @@ class _Level3Page extends State<Level3Page>{
                 listenable: designNotifier,
                 builder: (context,  widget) {
                   
-                  levelState.setProgress(designNotifier.totalpoints.round());
-                  levelState.evaluate();
+                  if(designNotifier.litterFound){
+                     _playerWon();
+                  }
                   
   
                   return LayoutBuilder(

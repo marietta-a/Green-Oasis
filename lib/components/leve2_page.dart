@@ -18,6 +18,7 @@ import 'package:green_oasis/level_selection/levels.dart';
 import 'package:green_oasis/pages/drag/conservation_drag.dart';
 import 'package:green_oasis/pages/drag/drag_gesture_page.dart';
 import 'package:green_oasis/pages/drag/drag_gesture_page1.dart';
+import 'package:green_oasis/pages/drag/drag_gesture_page2.dart';
 import 'package:green_oasis/player_progress/player_progress.dart';
 import 'package:green_oasis/settings/settings.dart';
 import 'package:green_oasis/style/my_button.dart';

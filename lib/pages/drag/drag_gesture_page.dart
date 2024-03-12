@@ -24,6 +24,8 @@ class DragGesturePage extends StatelessWidget {
   final DesignModel designNotifier;
   DragGesturePage({Key? key, required this.designNotifier}) : super(key: key);
 
+  
+
   @override
   Widget build(BuildContext context) {
     final soilComponent =  SoilDrag(position: soilVector,);
@@ -33,6 +35,7 @@ class DragGesturePage extends StatelessWidget {
       builder: (context, constraints){
 
         return BonfireWidget(
+                  key: Key("bonfire ${designNotifier.level.number}"),
                   map: WorldMapByTiled(
                     // TiledReader.asset('tiled/tiled_example.tmj'),
                     TiledReader.asset('tiled/punnyworld/simple_map.tmj'),

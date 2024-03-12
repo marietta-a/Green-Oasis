@@ -28,7 +28,7 @@ class Flower8Drag extends GameDecoration
   required this.parentSize,
   required this.designNotifier,
   }): super.withSprite(
-    sprite: ConservationSpriteSheet.flower1Sprite,
+    sprite: ConservationSpriteSheet.flowerSprite,
     size: spriteSize,
     renderAboveComponents: true,
     position: childPosition

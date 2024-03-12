@@ -16,40 +16,38 @@ bool pointsGained = false;
 
 
 
-class Flower5Drag extends GameDecoration
+class FlowerADragLevel2 extends GameDecoration
     with DragGesture, Movement  {
   late TextPaint _textPaint;
   final String text = 'Drag me';
   final Vector2 parentPosition;
   final Vector2 parentSize;
   final DesignModel designNotifier;
-  Flower5Drag({required this.childPosition, 
+  FlowerADragLevel2({required this.childPosition, 
   required this.parentPosition, 
   required this.parentSize,
   required this.designNotifier,
   }): super.withSprite(
-    sprite: ConservationSpriteSheet.flowerSprite,
+    sprite: ConservationSpriteSheet.flower2_2Sprite,
     size: spriteSize,
     renderAboveComponents: true,
     position: childPosition
   );
 
   final Vector2 childPosition;
-  late int butterflies = 0;
   
+  late int butterflies = 0;
   @override void update(double dt) {
     if(designNotifier.totalpoints > 50 && butterflies < 1){
       add(ButterflyDrag(position: Vector2(0,0), designNotifier: designNotifier));
       butterflies += 1;
     }
+    if(designNotifier.levelCompleted){
+      item.resetItem();
+      designNotifier.setLevelCompleted(false);
+    }
     super.update(dt);
   }
-  
-  @override
-  Future<void> onLoad() {
-     item.id = 0;
-     return super.onLoad();
-  }   
 
   @override
   bool handlerPointerUp(PointerUpEvent event) {

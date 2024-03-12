@@ -15,6 +15,25 @@ import 'package:green_oasis/pages/drag/flower_art1_drag.dart.dart';
 import 'package:green_oasis/pages/drag/flower_art2_drag.dart.dart';
 import 'package:green_oasis/pages/drag/flower_art3_drag.dart.dart';
 import 'package:green_oasis/pages/drag/flower_drag.dart';
+import 'package:green_oasis/pages/drag/l2art.dart.dart';
+import 'package:green_oasis/pages/drag/l2art1.dart.dart';
+import 'package:green_oasis/pages/drag/l2art2.dart.dart';
+import 'package:green_oasis/pages/drag/l2art3.dart.dart';
+import 'package:green_oasis/pages/drag/l2art4.dart.dart';
+import 'package:green_oasis/pages/drag/l2art5.dart.dart';
+import 'package:green_oasis/pages/drag/l2flower.dart.dart';
+import 'package:green_oasis/pages/drag/l2flower1.dart.dart';
+import 'package:green_oasis/pages/drag/l2flower3.dart.dart';
+import 'package:green_oasis/pages/drag/l2flower4.dart.dart';
+import 'package:green_oasis/pages/drag/l2flower5.dart.dart';
+import 'package:green_oasis/pages/drag/l2flower6.dart.dart';
+import 'package:green_oasis/pages/drag/l2flower7.dart.dart';
+import 'package:green_oasis/pages/drag/l2flower8.dart.dart';
+import 'package:green_oasis/pages/drag/l2flower9.dart.dart';
+import 'package:green_oasis/pages/drag/l2flowerA.dart.dart';
+import 'package:green_oasis/pages/drag/l2flowerB.dart.dart';
+import 'package:green_oasis/pages/drag/l2flowerC.dart.dart';
+import 'package:green_oasis/pages/tap/paper_tap.dart';
 
 
 const tileSize = 16.0;
@@ -27,6 +46,7 @@ class DragGesturePage2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final soilComponent =  SoilDrag(position: soilVector,);
+    final paperSize = Vector2.all(25);
 
     return ListenableBuilder(
       listenable: designNotifier, 
@@ -49,78 +69,31 @@ class DragGesturePage2 extends StatelessWidget {
                     House1Drag(
                       position: Vector2(tileSize * 9, tileSize * 1),
                     ),
-                    FlowerDrag(
-                      childPosition: Vector2(tileSize * 0, tileSize * 0),
-                      parentPosition: soilVector,
-                      parentSize: soilComponent.size,
-                      designNotifier: designNotifier
-                    ),
-                    Flower1Drag(
-                      childPosition: Vector2(tileSize * 0, tileSize * 2),
-                      parentPosition: soilVector,
-                      parentSize: soilComponent.size,
-                      designNotifier: designNotifier
-                    ),
-                    FlowerArtificial1Drag(
-                      childPosition: Vector2(tileSize * 0, tileSize * 4),
-                      parentPosition: soilVector,
-                      parentSize: soilComponent.size,
-                      designNotifier: designNotifier
-                    ),
-                    Flower2Drag(
-                      childPosition: Vector2(tileSize * 0, tileSize * 6),
-                      parentPosition: soilVector,
-                      parentSize: soilComponent.size,
-                      designNotifier: designNotifier
-                    ),
-                    FlowerArtificial2Drag(
-                      childPosition: Vector2(tileSize * 0, tileSize * 8),
-                      parentPosition: soilVector,
-                      parentSize: soilComponent.size,
-                      designNotifier: designNotifier
-                    ),
-                    Flower3Drag(
-                      childPosition: Vector2(tileSize * 0, tileSize * 10),
-                      parentPosition: soilVector,
-                      parentSize: soilComponent.size,
-                      designNotifier: designNotifier
-                    ),
-                    Flower4Drag(
-                      childPosition: Vector2(tileSize * 13.1, tileSize * 0),
-                      parentPosition: soilVector,
-                      parentSize: soilComponent.size,
-                      designNotifier: designNotifier
-                    ),
-                    FlowerArtificial3Drag(
-                      childPosition: Vector2(tileSize * 13.1, tileSize * 2),
-                      parentPosition: soilVector,
-                      parentSize: soilComponent.size,
-                      designNotifier: designNotifier
-                    ),
-                    Flower5Drag(
-                      childPosition: Vector2(tileSize * 13.1, tileSize * 4),
-                      parentPosition: soilVector,
-                      parentSize: soilComponent.size,
-                      designNotifier: designNotifier
-                    ),
-                    Flower6Drag(
-                      childPosition: Vector2(tileSize * 13.1, tileSize * 6),
-                      parentPosition: soilVector,
-                      parentSize: soilComponent.size,
-                      designNotifier: designNotifier
-                    ),
-                    Flower7Drag(
-                      childPosition: Vector2(tileSize * 13.1, tileSize * 8),
-                      parentPosition: soilVector,
-                      parentSize: soilComponent.size,
-                      designNotifier: designNotifier
-                    ),
-                    Flower8Drag(
-                      childPosition: Vector2(tileSize * 13.1, tileSize * 10),
-                      parentPosition: soilVector,
-                      parentSize: soilComponent.size,
-                      designNotifier: designNotifier
-                    ),
+                    FlowerStaticAnim(position: Vector2(soilVector.x, soilVector.y + 17), designNotifier: designNotifier),
+                    FlowerStaticAnim(position: Vector2(soilVector.x, soilVector.y + (17*2)), designNotifier: designNotifier),
+                    FlowerStaticAnim(position: Vector2(soilVector.x, soilVector.y + (17*3)), designNotifier: designNotifier),
+                    Flower1Static(position: Vector2(soilVector.x, soilVector.y + (17*4))),
+                    FlowerStaticAnim(position: Vector2(soilVector.x, soilVector.y + (17*4.2)), designNotifier: designNotifier),
+                   
+                    FlowerStatic(position: Vector2(soilVector.x + 25, soilVector.y + 17), designNotifier: designNotifier),
+                    FlowerStatic(position: Vector2(soilVector.x + 25, soilVector.y + (17 * 2)), designNotifier: designNotifier),
+                    FlowerStaticAnim1(position: Vector2(soilVector.x + 25, soilVector.y + (17 * 3)), designNotifier: designNotifier),
+                    FlowerStatic(position: Vector2(soilVector.x + 25, soilVector.y + (17 * 4)), designNotifier: designNotifier),
+                    FlowerStatic(position: Vector2(soilVector.x + 25, soilVector.y + (17 * 4.2)), designNotifier: designNotifier),
+
+                    FlowerStaticAnim(position: Vector2(soilVector.x + (25*2), soilVector.y + 17), designNotifier: designNotifier),
+                    FlowerStaticAnim(position: Vector2(soilVector.x + (25*2), soilVector.y + (17*2)), designNotifier: designNotifier),
+                    Flower1Static(position: Vector2(soilVector.x + (25*2), soilVector.y + (17*3))),
+                    Flower1Static(position: Vector2(soilVector.x + (25*2), soilVector.y + (17*4))),
+                    Flower1Static(position: Vector2(soilVector.x + (25*2), soilVector.y + (17*4.2))),
+                   
+                    FlowerStaticAnim1(position: Vector2(soilVector.x + (25*3), soilVector.y + 17), designNotifier: designNotifier),
+                    FlowerStatic(position: Vector2(soilVector.x + (25*3), soilVector.y + (17 * 2)), designNotifier: designNotifier),
+                    FlowerStaticAnim1(position: Vector2(soilVector.x + (25*3), soilVector.y + (17 * 3)), designNotifier: designNotifier),
+                    FlowerStaticAnim1(position: Vector2(soilVector.x + (25*3), soilVector.y + (17 * 4)), designNotifier: designNotifier),
+                    FlowerStaticAnim1(position: Vector2(soilVector.x + (25*3), soilVector.y + (17 * 4.2)), designNotifier: designNotifier),
+
+                    PaperTap(position: Vector2.all(0), size: paperSize, designNotifier: designNotifier),
                   ],
               );
       }

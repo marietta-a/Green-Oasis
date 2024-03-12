@@ -4,7 +4,6 @@ import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
 import 'package:green_oasis/components/core.dart';
 import 'package:green_oasis/helpers/helpers.dart';
-import 'package:green_oasis/pages/drag/conservation_drag.dart';
 import 'package:green_oasis/shared/util/conservation_sprite.dart';
 
 final spriteSize = Vector2.all(25);
@@ -16,40 +15,32 @@ bool pointsGained = false;
 
 
 
-class Flower5Drag extends GameDecoration
+class FlowerArtificial2DragL2 extends GameDecoration
     with DragGesture, Movement  {
   late TextPaint _textPaint;
-  final String text = 'Drag me';
+  final String text = 'Artificial';
   final Vector2 parentPosition;
   final Vector2 parentSize;
   final DesignModel designNotifier;
-  Flower5Drag({required this.childPosition, 
+  FlowerArtificial2DragL2({required this.childPosition, 
   required this.parentPosition, 
   required this.parentSize,
   required this.designNotifier,
   }): super.withSprite(
-    sprite: ConservationSpriteSheet.flowerSprite,
+    sprite: ConservationSpriteSheet.flowerart1Sprite,
     size: spriteSize,
     renderAboveComponents: true,
     position: childPosition
   );
 
   final Vector2 childPosition;
-  late int butterflies = 0;
-  
-  @override void update(double dt) {
-    if(designNotifier.totalpoints > 50 && butterflies < 1){
-      add(ButterflyDrag(position: Vector2(0,0), designNotifier: designNotifier));
-      butterflies += 1;
-    }
-    super.update(dt);
-  }
-  
   @override
   Future<void> onLoad() {
      item.id = 0;
+     _addsText();
      return super.onLoad();
   }   
+
 
   @override
   bool handlerPointerUp(PointerUpEvent event) {
@@ -66,7 +57,8 @@ class Flower5Drag extends GameDecoration
     position, 
     spriteSize, 
     gameRef.context,
-    designNotifier
+    designNotifier,
+    isFake: true,
   );
 }
 
@@ -74,7 +66,7 @@ class Flower5Drag extends GameDecoration
   void _addsText() {
     _textPaint = TextPaint(
       style: TextStyle(
-        fontSize: size.x / 4,
+        fontSize: 4,
         color: Colors.white,
       ),
     );
@@ -82,7 +74,7 @@ class Flower5Drag extends GameDecoration
     add(
       TextComponent(
         text: text,
-        position: Vector2((textSize.x / -2) + size.x / 2, -5),
+        position: Vector2((textSize.x / -2) + size.x / 2, -3),
         textRenderer: _textPaint,
       ),
     );
@@ -90,7 +82,6 @@ class Flower5Drag extends GameDecoration
 
 
 }
-
 
   Future<void> evaluatePoint(Vector2 parentPosition,
    Vector2 parentSize, 
@@ -109,11 +100,11 @@ class Flower5Drag extends GameDecoration
     String hintText = "Hint";
     
     if(isValidX && isValidY){
-      points = isFake ? -10 : 20;
+      points = isFake ? -15 : 20;
       pointsGained = points >= 0;
     }
     else{
-      points = -5;
+      points = -10;
       pointsGained  = false;
     }
 
@@ -152,8 +143,6 @@ class Flower5Drag extends GameDecoration
 
      designNotifier.setHintText(hintText);
      designNotifier.setPoints(points);
-     designNotifier.showButterflyDialog(context);
   }
-
 }
   

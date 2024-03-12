@@ -17,6 +17,8 @@ import 'package:green_oasis/helpers/helpers.dart';
 import 'package:green_oasis/level_selection/levels.dart';
 import 'package:green_oasis/pages/drag/conservation_drag.dart';
 import 'package:green_oasis/pages/drag/drag_gesture_page.dart';
+import 'package:green_oasis/pages/drag/drag_gesture_page1.dart';
+import 'package:green_oasis/pages/drag/drag_gesture_page2.dart';
 import 'package:green_oasis/player_progress/player_progress.dart';
 import 'package:green_oasis/settings/settings.dart';
 import 'package:green_oasis/style/my_button.dart';
@@ -30,11 +32,11 @@ class Level1Page extends StatefulWidget{
   final DesignModel designNotifier;
   final GameLevel level;
   @override
-  State<StatefulWidget> createState() => _Level1Page(designNotifier);
+  State<StatefulWidget> createState() => _Level2Page(designNotifier);
 }
 
-class _Level1Page extends State<Level1Page>{
-  _Level1Page(this.designNotifier);
+class _Level2Page extends State<Level1Page>{
+  _Level2Page(this.designNotifier);
   final DesignModel designNotifier;
   static final _log = Logger('PlaySessionScreen');
 

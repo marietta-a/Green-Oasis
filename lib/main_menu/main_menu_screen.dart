@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_wallet/google_wallet.dart';
+// import 'package:google_wallet/google_wallet.dart';
 import 'package:green_oasis/components/core.dart';
 import 'package:green_oasis/components/design_selectors.dart';
 import 'package:green_oasis/providers/google_wallet_page.dart';
@@ -55,14 +55,13 @@ class MainMenuScreen extends StatelessWidget {
           rectangularMenuArea: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              MyGoogleWalletPage(title: 'Premium Subscription',),
+              // MyGoogleWalletPage(title: 'Premium Subscription',),
               MyButton(
                 onPressed: () {
                   audioController.playSfx(SfxType.buttonTap);
                   final levelNumber = designModel.level.number ?? 1;
-                  GoRouter.of(context)
-                      .go('/play/session/${levelNumber}');
-                  // GoRouter.of(context).go('/play');
+                  // GoRouter.of(context).go('/play/session/${levelNumber}');
+                  GoRouter.of(context).go('/play');
                 },
                 child: const Text('Play'),
               ),

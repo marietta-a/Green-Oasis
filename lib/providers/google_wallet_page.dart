@@ -1,105 +1,195 @@
-import 'dart:async';
+
+// import 'package:add_to_google_wallet/widgets/add_to_google_wallet_button.dart';
+// import 'package:add_to_google_wallet/widgets/add_to_google_wallet_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_wallet/google_wallet.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:green_oasis/components/core.dart';
+import 'package:green_oasis/providers/add_to_google_wallet_button.dart';
+import 'package:green_oasis/settings/settings.dart';
+import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
+import 'dart:math' as math;
 
 
-class MyGoogleWalletPage extends StatefulWidget {
-  const MyGoogleWalletPage({super.key, required this.title});
-  final String title;
 
+
+
+class MyGoogleWalletBadge extends StatefulWidget{
+MyGoogleWalletBadge({required this.designNotifier});
+final DesignModel designNotifier;
   @override
-  State<MyGoogleWalletPage> createState() => _MyGoogleWalletPage();
+  State<StatefulWidget> createState() => _MyGoogleWalletBadge(designNotifier: designNotifier,);
+  
 }
 
-class _MyGoogleWalletPage extends State<MyGoogleWalletPage> {
-  final googleWallet = GoogleWallet();
-  final String jwt = 'eyJ0eXAiOiAiSldUIiwgImFsZyI6ICJSUzI1NiIsICJraWQiOiAiMjVmNjgzZDEwNzRhOTZkZmEwMGRiNDEwMjkwMzIwNTAyNzhiOTMwYiJ9.eyJpc3MiOiAiZGV2bW9kZXRlc3RAbXVzaWMtMjA1MjIyLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwgImF1ZCI6ICJnb29nbGUiLCAib3JpZ2lucyI6IFsid3d3LmV4YW1wbGUuY29tIl0sICJ0eXAiOiAic2F2ZXRvd2FsbGV0IiwgInBheWxvYWQiOiB7ImdlbmVyaWNPYmplY3RzIjogW3siaWQiOiAiMzM4ODAwMDAwMDAyMjE4NDQwMy50ZXN0MTIzNTY2NzNzcyJ9XX19.06qERcEP9l9dGQwbqueXWFF_UI50TX21x0PdmTyj--di2aNTFLsWB_yGOdS-nPT0X6_mn0nVmcrqnXkT0tcb7kye9jxwD-lVwjHYwn4R3Y7l7dWcQNcjeGPopeOoJmWiQF6uZoRmpmfr0q0kSS23QAPqbOiPpX4z_InARsG1p8XN1OQkCb9bx-YWu1bT-E5Be1UE5Si4NUOEZfyl4pis_HE2aKxtC7Rg-7VGNuSyyatJHZZ3bm_uU9QCG99rpRTHST4ggLW_npiPCBh6r7L3bR3PsKYejyn1zD6NQykQ3bHB9BSSNOtCDKI_8q121jjwc4KKz4dAonKxiYQhSYbrzg';
-  bool? _available = false;
-  String _text = 'Loading';
+class _MyGoogleWalletBadge extends State<MyGoogleWalletBadge> with SingleTickerProviderStateMixin{
+  late final AnimationController _controller = AnimationController(vsync: this, duration: Duration(seconds: 2))..repeat();
+_MyGoogleWalletBadge({required this.designNotifier});
+final DesignModel designNotifier;
+
+
+
+
+
+  // @override
+  // Widget build(BuildContext context) {
+
+
+  //    return Column(
+  //     mainAxisSize: MainAxisSize.min,
+  //     crossAxisAlignment: CrossAxisAlignment.center,
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: [
+  //       SizedBox(
+  //         width: 200,
+  //         height: 200,
+  //         child: 
+  //         AddToGoogleWalletButton(
+  //           pass: _examplePass,
+  //           onSuccess: () => _showSnackBar(context, 'Success!'),
+  //           onCanceled: () => _showSnackBar(context, 'Action canceled.'),
+  //           onError: (Object error) => _showSnackBar(context, error.toString()),
+  //           locale: const Locale.fromSubtags(
+  //             languageCode: 'en',
+  //             countryCode: 'US',
+  //         ),
+  //       ),
+        
+  //       // AnimatedBuilder(
+  //       //   animation: _controller,
+  //       //   builder: (_, child) {
+  //       //     return Transform.flip(
+  //       //           child: child,
+
+  //       //     );
+  //       //     // return Transform.rotate(
+  //       //     //   angle: _controller.value * 2 * math.pi,
+  //       //     //   child: child,
+  //       //     // );
+  //       //   },
+  //       ),
+  //       _gap
+        
+
+  //     ],
+  //    );
+  // }
+  void _showSnackBar(BuildContext context, String text) =>
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
+      
+  static const _gap = SizedBox(height: 10);
 
   @override
-  void initState() {
-    super.initState();
-    _checkAvailable();
-  }
+  Widget build(BuildContext context){
+    const String _passClass = 'genericGreenOasis';
+    const String _issuerId = '3388000000022329023';
+    const String _issuerEmail = 'akumbom5ma@gmail.com';
+    // "https://storage.googleapis.com/wallet-lab-tools-codelab-artifacts-public/pass_google_logo.jpg"
+    const String _logoUri = 'https://th.bing.com/th/id/OIP.5TQNCjVhuoutFvLW3lJdqgAAAA?rs=1&pid=ImgDetMain';
+    const String _imgUri = "https://sankalptaru.org/wp-content/themes/sankalptaru/dist/img/case-study/tree-planted.png";
+    final String _passId =  Uuid().v4();
 
-  _checkAvailable() async {
-    bool? available;
-    String text;
-    try {
-      // available = await googleWallet.isAvailable();
-      text = "Google Wallet is available: ${available}";
-    } on PlatformException catch (e) {
-      text = "Error: '${e.message}'.";
-    }
-    setState(() {
-      _available = available;
-      _text = text;
-    });
-  }
-
-  _savePass() async {
-    bool? saved = false;
-    String text;
-    try {
-      if (this._available == true) {
-        saved = await googleWallet.savePassesJwt(jwt);
-        text = "Pass saved: ${saved}";
-      } else {
-        // Wallet unavailable,
-        // fall back to saving pass via web
-        await _savePassBrowser();
-        text = "Opened Google Wallet via web";
+    final settings = context.read<SettingsController>();
+     final playName = settings?.playerName ?? "Player";
+     final String _examplePass = """ 
+    {
+      "iss": "$_issuerEmail",
+      "aud": "google",
+      "typ": "savetowallet",
+      "origins": [],
+      "payload": {
+        "genericObjects": [
+          {
+            "id": "$_issuerId.$_passId",
+            "classId": "$_issuerId.$_passClass",
+            "genericType": "GENERIC_TYPE_UNSPECIFIED",
+            "hexBackgroundColor": "#006600",
+            "logo": {
+              "sourceUri": {
+                "uri": "$_logoUri"
+              }
+            },
+            "cardTitle": {
+              "defaultValue": {
+                "language": "en",
+                "value": "Green Oasis"
+              }
+            },
+            "subheader": {
+              "defaultValue": {
+                "language": "en",
+                "value": "Gardener"
+              }
+            },
+            "header": {
+              "defaultValue": {
+                "language": "en",
+                "value": "$playName"
+              }
+            },
+            "barcode": {
+              "type": "QR_CODE",
+              "value": "$_passId"
+            },
+            "heroImage": {
+              "sourceUri": {
+                "uri": "$_imgUri"
+              }
+            },
+            "textModulesData": [
+              {
+                "header": "Gardening",
+                "body": "${designNotifier.level.number}",
+                "id": "${designNotifier.totalpoints}"
+              }
+            ]
+          }
+        ]
       }
-    } on PlatformException catch (e) {
-      text = "Error: '${e.message}'.";
     }
-    setState(() {
-      _text = text;
-    });
+""";
+    
+  return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+          AddToGoogleWalletButton(
+            pass: _examplePass,
+            onError: (Object error) => _onError(context, error),
+            onSuccess: () => _onSuccess(context),
+            onCanceled: () => _onCanceled(context),
+            locale: const Locale.fromSubtags(
+              languageCode: 'en',
+              countryCode: 'US',
+            ),
+          ),
+          const SizedBox(height: 8.0),
+        ],
+      );
   }
 
-  _savePassBrowser() async {
-    String url = "https://pay.google.com/gp/v/save/${jwt}";
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
-      throw 'Could not open Google Wallet via web';
-    }
-  }
+  void _onError(BuildContext context, Object error) =>
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          content: Text(error.toString()),
+        ),
+      );
 
-  @override
-  Widget build(BuildContext context) {
-    return GoogleWalletButton(
-      style: GoogleWalletButtonStyle.condensed,
-      height: 90,
-      onPressed: _savePass,
-      // optionally set the locale explicitly:
-      locale: Locale("en_US"),
-    );
-    // return Material(
-    //   child: Center(
-    //     child: Column(
-    //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //       children: [
-    //         GoogleWalletButton(
-    //           style: GoogleWalletButtonStyle.condensed,
-    //           height: 90,
-    //           onPressed: _savePass,
-    //           // optionally set the locale explicitly:
-    //           locale: Locale("en_US"),
-    //         ),
-    //         Text(
-    //           _text,
-    //           style: TextStyle(
-    //             fontSize: 4,
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
-  }
+  void _onSuccess(BuildContext context) =>
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.green,
+          content:
+              Text('Pass has been successfully added to the Google Wallet.'),
+        ),
+      );
+
+  void _onCanceled(BuildContext context) =>
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.yellow,
+          content: Text('Adding a pass has been canceled.'),
+        ),
+      );
 }

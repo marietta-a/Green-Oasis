@@ -10,6 +10,7 @@ import 'package:green_oasis/components/core.dart';
 
 class Helpers{
   const Helpers();
+  static String PlayerName = "Player";
   Vector2 get screenSize => Vector2(1920, 1080); 
 
   // house helpers
@@ -86,6 +87,10 @@ class GamePoints{
   bool hasPositive = false;
   bool get shouldCompute => !hasNegative ||  !hasPositive;
   int id = -1;
+  void resetItem(){
+    hasNegative = false;
+    hasPositive = false;
+  }
 }
 
 

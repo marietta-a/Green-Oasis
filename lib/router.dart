@@ -55,17 +55,17 @@ final router = GoRouter(
                     //   key: const Key('play session'),
                     // ),
                     
-                    child: level == 1 ?
+                    child: levelNumber == 1 ?
                            Level1Page(
                       designNotifier: designNotifier,
-                      key: const Key('play geame'),
+                      key:  Key('play game $levelNumber'),
                       level: level,) :
-                      (level == 2 ? Level2Page(
+                      (levelNumber == 2 ? Level2Page(
                       designNotifier: designNotifier,
-                      key: const Key('play geame'),
+                      key:  Key('play game $levelNumber'),
                       level: level,) : Level3Page(
                       designNotifier: designNotifier,
-                      key: const Key('play geame'),
+                      key: Key('play game $levelNumber'),
                       level: level,) ),
                   );
                 },

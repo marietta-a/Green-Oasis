@@ -42,6 +42,10 @@ class FlowerDrag extends GameDecoration
       add(ButterflyDrag(position: Vector2(0,0), designNotifier: designNotifier));
       butterflies += 1;
     }
+    if(designNotifier.levelCompleted){
+      item.resetItem();
+      designNotifier.setLevelCompleted(false);
+    }
     super.update(dt);
   }
 

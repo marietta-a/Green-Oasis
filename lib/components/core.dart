@@ -77,8 +77,19 @@ class DesignModel with ChangeNotifier {
    List<GameDecoration> gameDecorationComponents = [];
    bool showButterflies = true;
    String hintText = "Hint: More details about points gain/loss";
+   bool levelCompleted = false;
+   bool litterFound = false;
 
+   void setLitterFound(bool b){
+     litterFound = b;
+     notifyListeners();
+   }
 
+  void setLevelCompleted(bool b){
+    levelCompleted = b;
+    notifyListeners();
+  }
+  
   void setGameDecorationComponents(List<GameDecoration> components){
     gameDecorationComponents.addAll(components);
     notifyListeners();
