@@ -26,6 +26,7 @@ class PaperTap extends GameDecoration
 
   @override
   void onTap() {
+    designNotifier.setPoints(200);
     designNotifier.setLitterFound(true);
     remove(spriteComponent);
   }

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:bonfire/decoration/decoration.dart';
 import 'package:flame/extensions.dart';
+import 'package:flame/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:green_oasis/components/core.dart';
@@ -28,6 +29,13 @@ class Helpers{
 
   Vector2 get gardenSize => Vector2(600, 200);
   Vector2 get gardenPosition => Vector2(screenSize.x/2, 80);
+
+  TextPaint get pointsTextPaint => TextPaint(
+    style: const TextStyle(
+      fontSize: 4,
+      color: Colors.white,
+    ),
+  );
 
 
   //Syles

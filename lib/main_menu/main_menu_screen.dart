@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 // import 'package:google_wallet/google_wallet.dart';
 import 'package:green_oasis/components/core.dart';
-import 'package:green_oasis/components/design_selectors.dart';
-import 'package:green_oasis/providers/google_wallet_page.dart';
 import 'package:provider/provider.dart';
 
 import '../audio/audio_controller.dart';

@@ -99,8 +99,8 @@ class _Level3Page extends State<Level3Page>{
           body: ListenableBuilder(
                 listenable: designNotifier,
                 builder: (context,  widget) {
-                  
-                  if(designNotifier.litterFound){
+                  levelState.setProgress(designNotifier.points.round());
+                  if(designNotifier.points >= 200){
                      _playerWon();
                   }
                   

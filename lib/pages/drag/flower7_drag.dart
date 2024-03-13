@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:green_oasis/components/core.dart';
 import 'package:green_oasis/helpers/helpers.dart';
 import 'package:green_oasis/pages/drag/conservation_drag.dart';
+import 'package:green_oasis/shared/util/common_sprite_sheet.dart';
 import 'package:green_oasis/shared/util/conservation_sprite.dart';
 
 final spriteSize = Vector2.all(25);
@@ -45,11 +46,6 @@ class Flower7Drag extends GameDecoration
     super.update(dt);
   }
   
-  @override
-  Future<void> onLoad() {
-     item.id = 0;
-     return super.onLoad();
-  }   
 
   @override
   bool handlerPointerUp(PointerUpEvent event) {
@@ -58,8 +54,6 @@ class Flower7Drag extends GameDecoration
     }
     return false;
   }
-
-
  onDragEnd(){
   evaluatePoint(parentPosition, 
     parentSize, 
@@ -68,6 +62,42 @@ class Flower7Drag extends GameDecoration
     gameRef.context,
     designNotifier
   );
+  remove(circleComponent);
+  if(globalPoints > 0){
+     paint.color = Colors.green;
+     textComponent.text = '+$globalPoints';
+  }
+  else{
+    paint.color = Colors.red;
+    textComponent.text = '$globalPoints';
+  }
+  circleComponent = CircleComponent(
+      position: circlePosition,
+      radius: radius,
+      children: [
+        textComponent,
+      ],
+      paint: paint
+  );
+  
+  add(circleComponent);
+}
+
+late CircleComponent circleComponent;
+late final paint = Paint();
+late double radius = 6;
+late final circlePosition = Vector2(spriteSize.x-5,0);
+late SpriteAnimationComponent spriteAnimComponent;
+late final textComponent = TextComponent(textRenderer: helpers.pointsTextPaint, position: Vector2.all(radius/2));
+@override
+Future<void> onLoad()  async{
+  final paint = Paint();
+  paint.color = Colors.green;
+  circleComponent = CircleComponent();
+  final spriteAnim = await CommonSpriteSheet.circleAnimation; 
+  spriteAnimComponent = SpriteAnimationComponent(animation: spriteAnim, position: circlePosition, size: Vector2.all((radius * 2)));
+  add(circleComponent);
+  return super.onLoad();
 }
 
 

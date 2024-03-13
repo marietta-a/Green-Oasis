@@ -7,8 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:green_oasis/components/core.dart';
 import 'package:green_oasis/level_selection/levels.dart';
 import 'package:green_oasis/player_progress/player_progress.dart';
-import 'package:green_oasis/providers/google_wallet.dart';
-import 'package:green_oasis/providers/google_wallet_page.dart';
 import 'package:provider/provider.dart';
 
 import '../game_internals/score.dart';
@@ -44,7 +42,11 @@ class WinGameScreen extends StatelessWidget {
             const Center(
               child: Text(
                 'You won!',
-                style: TextStyle(fontFamily: 'Permanent Marker', fontSize: 50),
+                style: TextStyle(
+                  fontFamily: 'Permanent Marker', 
+                  fontSize: 50,
+                  color: Colors.white
+                ),
               ),
             ),
             gap,
@@ -53,7 +55,10 @@ class WinGameScreen extends StatelessWidget {
                 'Score: ${score.score}\n'
                 'Time: ${score.formattedTime}',
                 style: const TextStyle(
-                    fontFamily: 'Permanent Marker', fontSize: 20),
+                    fontFamily: 'Permanent Marker', 
+                    fontSize: 20,
+                    color: Colors.white
+                  ),
               ),
             ),
           ],
@@ -61,8 +66,6 @@ class WinGameScreen extends StatelessWidget {
         rectangularMenuArea:  Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              // MyGoogleWalletPage(title: 'Premium Subscription',),
-              MyGoogleWalletBadge(designNotifier: designNotifier),
               
               MyButton(
                 onPressed: () {

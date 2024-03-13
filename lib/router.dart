@@ -5,10 +5,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:green_oasis/components/core.dart';
-import 'package:green_oasis/components/Level1_page.dart';
+import 'package:green_oasis/game_levels/level1_page.dart';
 import 'package:green_oasis/components/designer.dart';
-import 'package:green_oasis/components/leve2_page.dart';
-import 'package:green_oasis/components/leve3_page.dart';
+import 'package:green_oasis/game_levels/level2_page.dart';
+import 'package:green_oasis/game_levels/level3_page.dart';
 import 'package:green_oasis/lost_game/lose_game_screen.dart';
 import 'package:provider/provider.dart';
 

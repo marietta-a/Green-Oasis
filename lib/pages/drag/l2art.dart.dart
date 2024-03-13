@@ -4,6 +4,7 @@ import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
 import 'package:green_oasis/components/core.dart';
 import 'package:green_oasis/helpers/helpers.dart';
+import 'package:green_oasis/shared/util/common_sprite_sheet.dart';
 import 'package:green_oasis/shared/util/conservation_sprite.dart';
 
 final spriteSize = Vector2.all(25);
@@ -34,13 +35,6 @@ class FlowerArtificialDragL2 extends GameDecoration
   );
 
   final Vector2 childPosition;
-  @override
-  Future<void> onLoad() {
-     item.id = 0;
-     _addsText();
-     return super.onLoad();
-  }   
-
 
   @override
   bool handlerPointerUp(PointerUpEvent event) {
@@ -50,7 +44,6 @@ class FlowerArtificialDragL2 extends GameDecoration
     return false;
   }
 
-
  onDragEnd(){
   evaluatePoint(parentPosition, 
     parentSize, 
@@ -58,10 +51,45 @@ class FlowerArtificialDragL2 extends GameDecoration
     spriteSize, 
     gameRef.context,
     designNotifier,
-    isFake: true,
+    isFake: true
   );
+  remove(circleComponent);
+  if(globalPoints > 0){
+     paint.color = Colors.green;
+     textComponent.text = '+$globalPoints';
+  }
+  else{
+    paint.color = Colors.red;
+    textComponent.text = '$globalPoints';
+  }
+  circleComponent = CircleComponent(
+      position: circlePosition,
+      radius: radius,
+      children: [
+        textComponent,
+      ],
+      paint: paint
+  );
+  
+  add(circleComponent);
 }
 
+late CircleComponent circleComponent;
+late final paint = Paint();
+late double radius = 6;
+late final circlePosition = Vector2(spriteSize.x-5,0);
+late SpriteAnimationComponent spriteAnimComponent;
+late final textComponent = TextComponent(textRenderer: helpers.pointsTextPaint, position: Vector2.all(radius/2));
+@override
+Future<void> onLoad()  async{
+  final paint = Paint();
+  paint.color = Colors.green;
+  circleComponent = CircleComponent();
+  final spriteAnim = await CommonSpriteSheet.circleAnimation; 
+  spriteAnimComponent = SpriteAnimationComponent(animation: spriteAnim, position: circlePosition, size: Vector2.all((radius * 2)));
+  add(circleComponent);
+  return super.onLoad();
+}
 
   void _addsText() {
     _textPaint = TextPaint(
@@ -89,7 +117,7 @@ class FlowerArtificialDragL2 extends GameDecoration
    Vector2 itemSize, 
    BuildContext context,
    DesignModel designNotifier,
-   {bool isFake = false}) async {
+   {bool isFake = true}) async {
     var parentX = parentPosition.x + parentSize.x;
     var parentY = parentPosition.y + parentSize.y;
     var childX =  itemPosition.x + itemSize.x;
