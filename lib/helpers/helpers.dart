@@ -1,12 +1,10 @@
 
 import 'dart:math';
 import 'dart:ui';
-import 'package:bonfire/decoration/decoration.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
-import 'package:green_oasis/components/core.dart';
 
 
 class Helpers{

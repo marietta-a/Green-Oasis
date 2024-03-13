@@ -1,29 +1,19 @@
 
 import 'dart:async';
 
-import 'package:flame/components.dart';
-import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:green_oasis/audio/audio_controller.dart';
 import 'package:green_oasis/audio/sounds.dart';
 import 'package:green_oasis/components/core.dart';
-import 'package:green_oasis/components/designer.dart';
 import 'package:green_oasis/game_internals/level_state.dart';
 import 'package:green_oasis/game_internals/score.dart';
-import 'package:green_oasis/helpers/enums.dart';
-import 'package:green_oasis/helpers/helpers.dart';
 import 'package:green_oasis/level_selection/levels.dart';
 import 'package:green_oasis/pages/drag/conservation_drag.dart';
-import 'package:green_oasis/pages/drag/drag_gesture_page.dart';
 import 'package:green_oasis/pages/drag/drag_gesture_page1.dart';
-import 'package:green_oasis/pages/drag/drag_gesture_page2.dart';
 import 'package:green_oasis/player_progress/player_progress.dart';
-import 'package:green_oasis/settings/settings.dart';
-import 'package:green_oasis/style/my_button.dart';
 import 'package:green_oasis/style/palette.dart';
-import 'package:green_oasis/style/responsive_screen.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
@@ -67,7 +57,7 @@ class _Level2Page extends State<Level2Page>{
 
   @override
   Widget build(BuildContext context) {
-    // final palette = context.watch<Palette>();
+    final palette = context.watch<Palette>();
     // final settingsController = context.watch<SettingsController>();
     final audioController = context.watch<AudioController>();
     // final helpers = Helpers();
@@ -122,24 +112,22 @@ class _Level2Page extends State<Level2Page>{
             ),
           
           floatingActionButton: Container(
-            height: 100,
-            width: 200,
+            height: 30,
+            width: 100,
+            padding: EdgeInsets.all(4),
             decoration:  BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: Colors.brown,
+              color: Color.fromARGB(153, 33, 149, 243),
               boxShadow: [
-                  BoxShadow(color: Colors.brown, spreadRadius: 3),
+                  BoxShadow(color: Color.fromARGB(153, 220, 231, 59), spreadRadius: 3),
               ],
             ),
-            // onPressed: () {
 
-            // },
-            // backgroundColor: Color.fromARGB(255, 88, 53, 214),
             child: ListenableBuilder(
             listenable: designNotifier,
             builder: (context, widget){
               return Text(
-                "${designNotifier.hintText}",
+                "Score: ${designNotifier.totalpoints}",
                 style: const TextStyle(
                   fontSize: 16,
                   color: Colors.white
@@ -148,35 +136,36 @@ class _Level2Page extends State<Level2Page>{
             },
           ),
           ),
-          bottomSheet: ListenableBuilder(
+           bottomSheet: Container(
+            height: 50,
+            width: 200,
+            padding: EdgeInsets.all(10),
+            decoration:  BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: palette.backgroundMain,
+              boxShadow: [
+                  BoxShadow(color: palette.backgroundMain, spreadRadius: 3),
+              ],
+            ),
+            child: ListenableBuilder(
             listenable: designNotifier,
             builder: (context, widget){
-              return AnimatedContainer(
-                // width: selected ? 200.0 : 100.0,
-                // height: selected ? 100.0 : 200.0,
-                color: designNotifier.pointsGained ? Colors.green : Colors.red,
-                duration: const Duration(seconds: 2),
-                curve: Curves.fastOutSlowIn,
-                child:  Container(
-                  decoration:  BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.white,
-                    boxShadow: [
-                        BoxShadow(color: Color.fromARGB(255, 2, 91, 136), spreadRadius: 3),
-                    ],
-                  ),
-                  child: Text(
-                    "Score: ${designNotifier.totalpoints}",
+              return Flex(
+                direction: Axis.horizontal,
+                children: [
+                  Text(
+                    "${designNotifier.hintText}",
                     style: const TextStyle(
-                      backgroundColor: Color.fromARGB(255, 2, 91, 136),
-                      color: Colors.white,
-                      fontSize: 24,
+                      fontSize: 10,
+                      color: Colors.white
                     ),
                   ),
-                ),
+                  
+                ],
               );
             },
-          ) ,
+          ),
+          ),
         )
       )
    );

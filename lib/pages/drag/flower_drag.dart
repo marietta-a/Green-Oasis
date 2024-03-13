@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:bonfire/bonfire.dart';
-import 'package:flame/experimental.dart';
 import 'package:flutter/material.dart';
 import 'package:green_oasis/components/core.dart';
 import 'package:green_oasis/helpers/helpers.dart';
@@ -71,11 +70,11 @@ class FlowerDrag extends GameDecoration
   remove(circleComponent);
   if(globalPoints > 0){
      paint.color = Colors.green;
-     textComponent.text = '+$globalPoints';
+     textComponent.text = '+${globalPoints.round()}';
   }
   else{
     paint.color = Colors.red;
-    textComponent.text = '$globalPoints';
+    textComponent.text = '${globalPoints.round()}';
   }
   circleComponent = CircleComponent(
       position: circlePosition,

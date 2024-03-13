@@ -4,7 +4,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-// import 'package:google_wallet/google_wallet.dart';
 import 'package:green_oasis/components/core.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +27,7 @@ class MainMenuScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: palette.backgroundMain,
       body: DecoratedBox(
-        decoration:  BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("images/conservation/fantasy-landscape.jpg"),
               fit: BoxFit.cover,
@@ -39,13 +38,14 @@ class MainMenuScreen extends StatelessWidget {
             child: Transform.rotate(
               angle: -0.1,
               child: const Text(
-                "Let's build our conservative dream home!",
+                "Let's build an aesthetically pleasing and a conservative dream home!",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'Permanent Marker',
                   fontSize: 55,
                   height: 1,
-                  color: Colors.red
+                  // color: Colors.red
+                  color: Colors.white
                 ),
               ),
             ),

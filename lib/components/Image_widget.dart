@@ -1,13 +1,6 @@
-import 'dart:io';
 
-import 'package:flame/components.dart';
-import 'package:flame/flame.dart';
 import 'package:flame/widgets.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:green_oasis/components/plant.dart';
-import 'package:green_oasis/helpers/helpers.dart';
-import 'package:provider/provider.dart';
 
 class ImageWidget extends StatefulWidget {
   final String imageSrc;

@@ -65,11 +65,11 @@ class Flower5Drag extends GameDecoration
   remove(circleComponent);
   if(globalPoints > 0){
      paint.color = Colors.green;
-     textComponent.text = '+$globalPoints';
+     textComponent.text = '+${globalPoints.round()}';
   }
   else{
     paint.color = Colors.red;
-    textComponent.text = '$globalPoints';
+    textComponent.text = '${globalPoints.round()}';
   }
   circleComponent = CircleComponent(
       position: circlePosition,

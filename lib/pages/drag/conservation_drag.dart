@@ -1,16 +1,12 @@
 import 'dart:async';
-import 'dart:js';
-import 'dart:ui';
 
 import 'package:bonfire/bonfire.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:green_oasis/components/core.dart';
 import 'package:green_oasis/helpers/helpers.dart';
 import 'package:green_oasis/pages/drag/drag_gesture_page.dart';
 import 'package:green_oasis/shared/util/common_sprite_sheet.dart';
 import 'package:green_oasis/shared/util/conservation_sprite.dart';
-import 'package:provider/provider.dart';
 
 
 final spriteSize = Vector2.all(25);

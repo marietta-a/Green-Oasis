@@ -1,28 +1,18 @@
 
 import 'dart:async';
 
-import 'package:flame/components.dart';
-import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:green_oasis/audio/audio_controller.dart';
 import 'package:green_oasis/audio/sounds.dart';
 import 'package:green_oasis/components/core.dart';
-import 'package:green_oasis/components/designer.dart';
 import 'package:green_oasis/game_internals/level_state.dart';
 import 'package:green_oasis/game_internals/score.dart';
-import 'package:green_oasis/helpers/enums.dart';
-import 'package:green_oasis/helpers/helpers.dart';
 import 'package:green_oasis/level_selection/levels.dart';
 import 'package:green_oasis/pages/drag/conservation_drag.dart';
-import 'package:green_oasis/pages/drag/drag_gesture_page.dart';
 import 'package:green_oasis/pages/drag/drag_gesture_page2.dart';
 import 'package:green_oasis/player_progress/player_progress.dart';
-import 'package:green_oasis/settings/settings.dart';
-import 'package:green_oasis/style/my_button.dart';
-import 'package:green_oasis/style/palette.dart';
-import 'package:green_oasis/style/responsive_screen.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 

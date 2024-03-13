@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:green_oasis/audio/audio_controller.dart';
-import 'package:green_oasis/audio/sounds.dart';
 import 'package:green_oasis/components/core.dart';
-import 'package:green_oasis/game_internals/level_state.dart';
-import 'package:green_oasis/game_internals/score.dart';
 import 'package:green_oasis/level_selection/levels.dart';
-import 'package:green_oasis/player_progress/player_progress.dart';
-import 'package:logging/logging.dart';
-import 'package:provider/provider.dart';
 
 
 class Designer extends StatefulWidget{

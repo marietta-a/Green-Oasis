@@ -76,7 +76,7 @@ class DesignModel with ChangeNotifier {
    bool pointsGained = false;
    List<GameDecoration> gameDecorationComponents = [];
    bool showButterflies = true;
-   String hintText = "Hint: More details about points gain/loss";
+   String hintText = "Hints";
    bool levelCompleted = false;
    bool litterFound = false;
 
