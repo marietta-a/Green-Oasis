@@ -7,7 +7,7 @@ import 'package:green_oasis/pages/mini_games/platform/gem_decoration.dart';
 import 'package:green_oasis/pages/mini_games/platform/platform_game_controller.dart';
 
 class PlatformGame extends StatefulWidget {
-  const PlatformGame({Key? key}) : super(key: key);
+  const PlatformGame({super.key});
 
   @override
   State<PlatformGame> createState() => _PlatformGameState();

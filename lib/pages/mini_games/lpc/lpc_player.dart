@@ -17,10 +17,9 @@ class LPCPlayer extends SimplePlayer with BlockMovementCollision {
   static String customWidgetKey = 'dialogCharacter';
   CustomStatus customStatus;
   LPCPlayer({
-    required Vector2 position,
+    required super.position,
     required this.customStatus,
   }) : super(
-          position: position,
           size: Vector2.all(48),
         );
 

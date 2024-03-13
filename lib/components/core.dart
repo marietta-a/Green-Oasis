@@ -133,7 +133,7 @@ class DesignModel with ChangeNotifier {
 
   void setPoints(double points){
      this.points = points;
-     this.totalpoints += points;
+     totalpoints += points;
      notifyListeners();
   }
 

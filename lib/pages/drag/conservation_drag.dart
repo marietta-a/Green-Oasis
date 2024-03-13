@@ -131,7 +131,7 @@ class SoilDrag extends GameDecoration {
 
   void _addsText() {
     _textPaint = TextPaint(
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 8,
         color: Colors.white,
       ),
@@ -179,10 +179,6 @@ class Flower1Static extends GameDecoration{
           renderAboveComponents: true
         );
 
-  @override
-  Future<void> onLoad() {
-    return super.onLoad();
-  }
 }
 
 class FlowerStaticAnim extends GameDecoration{
@@ -253,7 +249,7 @@ class Paper4 extends GameDecoration{
 
 class Paper2Tap extends GameDecoration
     with TapGesture, Movement{
-  Paper2Tap({required Vector2 position, required super.size}):super(position: position);
+  Paper2Tap({required super.position, required super.size});
   
   late GameDecoration spriteComponent = GameDecoration(position: position, size: size);
 
@@ -275,7 +271,7 @@ class Paper2Tap extends GameDecoration
 
 class Paper3Tap extends GameDecoration
     with TapGesture, Movement{
-  Paper3Tap({required Vector2 position, required super.size}):super(position: position);
+  Paper3Tap({required super.position, required super.size});
   
   late GameDecoration spriteComponent = GameDecoration(position: position, size: size);
 
@@ -297,7 +293,7 @@ class Paper3Tap extends GameDecoration
 
 class Paper4Tap extends GameDecoration
     with TapGesture, Movement{
-  Paper4Tap({required Vector2 position, required super.size}):super(position: position);
+  Paper4Tap({required super.position, required super.size});
   
   late GameDecoration spriteComponent = GameDecoration(position: position, size: size);
 

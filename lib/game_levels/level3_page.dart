@@ -2,7 +2,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:green_oasis/audio/audio_controller.dart';
 import 'package:green_oasis/audio/sounds.dart';
@@ -17,7 +16,7 @@ import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
 class Level3Page extends StatefulWidget{
-  Level3Page({super.key, required this.designNotifier, required this.level});
+  const Level3Page({super.key, required this.designNotifier, required this.level});
   final DesignModel designNotifier;
   final GameLevel level;
   @override
@@ -37,7 +36,7 @@ class _Level3Page extends State<Level3Page>{
   bool _duringCelebration = false;
   late LevelState levelState = LevelState(onWin: _playerWon,
    onLose: _playerLost, 
-   goal: this.widget.level.difficulty);
+   goal: widget.level.difficulty);
 
   late DateTime _startOfPlay;
   late final playerProgress = context.read<PlayerProgress>();
@@ -83,7 +82,7 @@ class _Level3Page extends State<Level3Page>{
             title: Text(
               'Level: ${currentLevelState.level.number} (Drag and drop flowers on the soil)',
               style:
-                  TextStyle(fontFamily: 'Permanent Marker', fontSize: 30),
+                  const TextStyle(fontFamily: 'Permanent Marker', fontSize: 30),
             ),
           ), 
           body: ListenableBuilder(
@@ -113,24 +112,22 @@ class _Level3Page extends State<Level3Page>{
             ),
           
           floatingActionButton: Container(
-            height: 100,
-            width: 200,
+            height: 30,
+            width: 100,
+            padding: const EdgeInsets.all(4),
             decoration:  BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: Colors.brown,
-              boxShadow: [
-                  BoxShadow(color: Colors.brown, spreadRadius: 3),
+              color: const Color.fromARGB(153, 33, 149, 243),
+              boxShadow: const [
+                  BoxShadow(color: Color.fromARGB(153, 220, 231, 59), spreadRadius: 3),
               ],
             ),
-            // onPressed: () {
 
-            // },
-            // backgroundColor: Color.fromARGB(255, 88, 53, 214),
             child: ListenableBuilder(
             listenable: designNotifier,
             builder: (context, widget){
               return Text(
-                "${designNotifier.hintText}",
+                "Score: ${designNotifier.totalpoints}",
                 style: const TextStyle(
                   fontSize: 16,
                   color: Colors.white
@@ -139,35 +136,35 @@ class _Level3Page extends State<Level3Page>{
             },
           ),
           ),
-          bottomSheet: ListenableBuilder(
-            listenable: designNotifier,
-            builder: (context, widget){
-              return AnimatedContainer(
-                // width: selected ? 200.0 : 100.0,
-                // height: selected ? 100.0 : 200.0,
-                color: designNotifier.pointsGained ? Colors.green : Colors.red,
-                duration: const Duration(seconds: 2),
-                curve: Curves.fastOutSlowIn,
-                child:  Container(
-                  decoration:  BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.white,
-                    boxShadow: [
-                        BoxShadow(color: Color.fromARGB(255, 2, 91, 136), spreadRadius: 3),
-                    ],
-                  ),
-                  child: Text(
-                    "Score: ${designNotifier.totalpoints}",
-                    style: const TextStyle(
-                      backgroundColor: Color.fromARGB(255, 2, 91, 136),
-                      color: Colors.white,
-                      fontSize: 24,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ) ,
+          // bottomSheet: ListenableBuilder(
+          //   listenable: designNotifier,
+          //   builder: (context, widget){
+          //     return AnimatedContainer(
+          //       // width: selected ? 200.0 : 100.0,
+          //       // height: selected ? 100.0 : 200.0,
+          //       color: designNotifier.pointsGained ? Colors.green : Colors.red,
+          //       duration: const Duration(seconds: 2),
+          //       curve: Curves.fastOutSlowIn,
+          //       child:  Container(
+          //         decoration:  BoxDecoration(
+          //           borderRadius: BorderRadius.circular(5),
+          //           color: Colors.white,
+          //           boxShadow: const [
+          //               BoxShadow(color: Color.fromARGB(255, 2, 91, 136), spreadRadius: 3),
+          //           ],
+          //         ),
+          //         child: Text(
+          //           "Score: ${designNotifier.totalpoints}",
+          //           style: const TextStyle(
+          //             backgroundColor: Color.fromARGB(255, 2, 91, 136),
+          //             color: Colors.white,
+          //             fontSize: 24,
+          //           ),
+          //         ),
+          //       ),
+          //     );
+          //   },
+          // ) ,
         )
       )
    );

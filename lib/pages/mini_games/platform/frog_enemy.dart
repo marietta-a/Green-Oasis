@@ -7,9 +7,8 @@ import 'package:green_oasis/pages/mini_games/platform/platform_spritesheet.dart'
 class FrogEnemy extends PlatformEnemy with HandleForces {
   int _timeToWaitBeforeJump = 4000;
   FrogEnemy({
-    required Vector2 position,
+    required super.position,
   }) : super(
-          position: position,
           size: Vector2(35, 32),
           speed: 50,
           animation: PlatformAnimations(

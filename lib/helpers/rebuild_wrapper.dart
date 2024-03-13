@@ -18,7 +18,7 @@ class RebuildWrapper extends StatelessWidget  {
   final RebuildController controller;
   final Widget child;
 
-  const RebuildWrapper({Key? key, required this.controller, required this.child}) : super(key: key);
+  const RebuildWrapper({super.key, required this.controller, required this.child});
 
   @override
   Widget build(BuildContext context) => Container(

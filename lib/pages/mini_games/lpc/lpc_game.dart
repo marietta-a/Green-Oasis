@@ -20,7 +20,7 @@ import 'package:green_oasis/pages/mini_games/lpc/widgets/button_interface.dart';
 ///
 /// issue: https://github.com/flutter/flutter/issues/103803
 class LPCGame extends StatelessWidget {
-  const LPCGame({Key? key}) : super(key: key);
+  const LPCGame({super.key});
 
   @override
   Widget build(BuildContext context) {

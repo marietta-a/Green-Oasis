@@ -6,12 +6,11 @@ class GamePlayer extends SimplePlayer with BlockMovementCollision {
   double baseSpeed = sizePlayer * 2;
 
   GamePlayer(Vector2 position, SimpleDirectionAnimation? spriteSheet,
-      {Direction initDirection = Direction.right})
+      {super.initDirection})
       : super(
           animation: spriteSheet,
           size: Vector2.all(sizePlayer),
           position: position,
-          initDirection: initDirection,
           life: 100,
           speed: sizePlayer * 2,
         );

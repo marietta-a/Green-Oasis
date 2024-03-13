@@ -1,15 +1,8 @@
-import 'dart:html';
 
 import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
-import 'package:flame/layout.dart';
 import 'package:flutter/material.dart';
-import 'package:green_oasis/components/Image_widget.dart';
-import 'package:green_oasis/components/garden.dart';
-import 'package:green_oasis/components/house.dart';
-import 'package:green_oasis/components/plant.dart';
 import 'package:green_oasis/helpers/helpers.dart';
 
 // Fixed viewport size  
@@ -18,7 +11,7 @@ import 'package:green_oasis/helpers/helpers.dart';
 class MyGame extends FlameGame {
   MyGame({required this.zoom});
   final double zoom;
-  final helpers = Helpers();
+  final helpers = const Helpers();
 
 
   @override
@@ -65,7 +58,7 @@ class MyGame extends FlameGame {
 
 // Helper component that paints a black background  
 class _Background extends PositionComponent {  
-  _Background({super.size});
+  _Background();
   
   set positionType(PositionType positionType) {}  
   
@@ -78,6 +71,8 @@ class _Background extends PositionComponent {
 }
 
 class GreenOasis extends StatelessWidget {
+  const GreenOasis({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

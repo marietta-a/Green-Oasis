@@ -74,7 +74,7 @@ class WinGameScreen extends StatelessWidget {
                   if(nextLevelNumber <= gameLevels.length){
                     final level = gameLevels[designModel.level.number];
                     designNotifier.setGameLevel(level);
-                    GoRouter.of(context).go('/play/session/${nextLevelNumber}');
+                    GoRouter.of(context).go('/play/session/$nextLevelNumber');
                   }
                   else{
                     GoRouter.of(context).go('/play');

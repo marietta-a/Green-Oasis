@@ -6,7 +6,7 @@ import 'package:green_oasis/level_selection/levels.dart';
 class Designer extends StatefulWidget{
     
   final GameLevel level;
-  Designer({super.key, required this.designNotifier, required this.level});
+  const Designer({super.key, required this.designNotifier, required this.level});
 
   final DesignModel designNotifier;
   

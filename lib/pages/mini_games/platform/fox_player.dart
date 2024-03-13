@@ -5,9 +5,8 @@ import 'package:green_oasis/pages/mini_games/platform/platform_spritesheet.dart'
 class FoxPlayer extends PlatformPlayer with HandleForces {
   bool inTrunk = false;
   FoxPlayer({
-    required Vector2 position,
+    required super.position,
   }) : super(
-          position: position,
           size: Vector2.all(33),
           speed: 50,
           animation: PlatformAnimations(

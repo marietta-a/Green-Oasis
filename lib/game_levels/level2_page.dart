@@ -2,7 +2,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:green_oasis/audio/audio_controller.dart';
 import 'package:green_oasis/audio/sounds.dart';
@@ -18,7 +17,7 @@ import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
 class Level2Page extends StatefulWidget{
-  Level2Page({super.key, required this.designNotifier, required this.level});
+  const Level2Page({super.key, required this.designNotifier, required this.level});
   final DesignModel designNotifier;
   final GameLevel level;
   @override
@@ -38,7 +37,7 @@ class _Level2Page extends State<Level2Page>{
   bool _duringCelebration = false;
   late LevelState levelState = LevelState(onWin: _playerWon,
    onLose: _playerLost, 
-   goal: this.widget.level.difficulty);
+   goal: widget.level.difficulty);
 
   late DateTime _startOfPlay;
   late final playerProgress = context.read<PlayerProgress>();
@@ -83,7 +82,7 @@ class _Level2Page extends State<Level2Page>{
             title: Text(
               'Level: ${currentLevelState.level.number} (Drag and drop flowers on the soil)',
               style:
-                  TextStyle(fontFamily: 'Permanent Marker', fontSize: 30),
+                  const TextStyle(fontFamily: 'Permanent Marker', fontSize: 30),
             ),
           ), 
           body: ListenableBuilder(
@@ -114,11 +113,11 @@ class _Level2Page extends State<Level2Page>{
           floatingActionButton: Container(
             height: 30,
             width: 100,
-            padding: EdgeInsets.all(4),
+            padding: const EdgeInsets.all(4),
             decoration:  BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: Color.fromARGB(153, 33, 149, 243),
-              boxShadow: [
+              color: const Color.fromARGB(153, 33, 149, 243),
+              boxShadow: const [
                   BoxShadow(color: Color.fromARGB(153, 220, 231, 59), spreadRadius: 3),
               ],
             ),
@@ -139,7 +138,7 @@ class _Level2Page extends State<Level2Page>{
            bottomSheet: Container(
             height: 50,
             width: 200,
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration:  BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: palette.backgroundMain,
@@ -154,7 +153,7 @@ class _Level2Page extends State<Level2Page>{
                 direction: Axis.horizontal,
                 children: [
                   Text(
-                    "${designNotifier.hintText}",
+                    designNotifier.hintText,
                     style: const TextStyle(
                       fontSize: 10,
                       color: Colors.white

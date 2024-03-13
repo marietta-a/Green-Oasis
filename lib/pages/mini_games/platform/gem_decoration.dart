@@ -4,10 +4,9 @@ import 'package:green_oasis/pages/mini_games/platform/platform_spritesheet.dart'
 class GemDecoration extends GameDecoration with Sensor {
   bool _alreadyContad = false;
   GemDecoration({
-    required Vector2 position,
+    required super.position,
   }) : super.withAnimation(
           animation: PlatformSpritesheet.gem,
-          position: position,
           size: Vector2(15, 13),
         );
 

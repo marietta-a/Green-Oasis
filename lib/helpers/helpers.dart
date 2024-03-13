@@ -1,6 +1,5 @@
 
 import 'dart:math';
-import 'dart:ui';
 import 'package:flame/extensions.dart';
 import 'package:flame/text.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +66,7 @@ class Helpers{
             ),
           );
         },
-        transitionDuration: Duration(milliseconds: 200),
+        transitionDuration: const Duration(milliseconds: 200),
         barrierDismissible: true,
         barrierLabel: '',
         context: context,

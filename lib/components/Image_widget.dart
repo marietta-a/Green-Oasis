@@ -7,7 +7,7 @@ class ImageWidget extends StatefulWidget {
 
   const ImageWidget({super.key, required this.imageSrc});
   @override
-  ImageWidgetState createState() => new ImageWidgetState(imageSrc: imageSrc);
+  ImageWidgetState createState() => ImageWidgetState(imageSrc: imageSrc);
 }
 
 class ImageWidgetState extends State<ImageWidget> {

@@ -18,10 +18,9 @@ class DialogCustomCharacter extends StatefulWidget {
       simpleAnimationChanged;
   final CustomStatus customStatus;
   const DialogCustomCharacter(
-      {Key? key,
+      {super.key,
       required this.simpleAnimationChanged,
-      required this.customStatus})
-      : super(key: key);
+      required this.customStatus});
 
   @override
   State<DialogCustomCharacter> createState() => _DialogCustomCharacterState();

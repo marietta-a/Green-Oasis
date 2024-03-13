@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:green_oasis/helpers/helpers.dart';
 
 
-final helpers = Helpers();
+const helpers = Helpers();
 class Garden extends SpriteComponent{
    Garden(): super(size: Vector2.all(10));
 

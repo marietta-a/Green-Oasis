@@ -22,7 +22,7 @@ final soilVector = Vector2(tileSize * 5, tileSize * 2.5);
 final butterflyVecor = Vector2(soilVector.x, soilVector.y + 30);
 class DragGesturePage extends StatelessWidget {
   final DesignModel designNotifier;
-  DragGesturePage({Key? key, required this.designNotifier}) : super(key: key);
+  const DragGesturePage({super.key, required this.designNotifier});
 
   
 

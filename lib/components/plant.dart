@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:green_oasis/helpers/helpers.dart';
 
 
-final helpers = Helpers();
+const helpers = Helpers();
 
 class Plant extends StatelessWidget{
     const Plant({super.key});

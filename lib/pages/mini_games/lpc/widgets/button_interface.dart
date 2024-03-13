@@ -23,7 +23,7 @@ class ButtonInterface extends StatelessWidget {
     );
   }
 
-  const ButtonInterface({Key? key, required this.game}) : super(key: key);
+  const ButtonInterface({super.key, required this.game});
 
   @override
   Widget build(BuildContext context) {

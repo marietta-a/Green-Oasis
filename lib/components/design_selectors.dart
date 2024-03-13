@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 
 const helpers = Helpers();
 class PlantDesigner extends StatefulWidget{
-  PlantDesigner({super.key, required this.designNotifier});
+  const PlantDesigner({super.key, required this.designNotifier});
   final DesignModel designNotifier;
 
   @override

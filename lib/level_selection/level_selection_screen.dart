@@ -31,17 +31,17 @@ class _LevelSelectionScreen extends State<LevelSelectionScreen> {
     final palette = context.watch<Palette>();
     final playerProgress = context.watch<PlayerProgress>();
     final designNotifier = context.watch<DesignModel>();
-    final textStyle = TextStyle(
+    const textStyle = TextStyle(
           fontSize: 28,
           color: Colors.white
     );
-    final textStyleDisabled = TextStyle(
+    const textStyleDisabled = TextStyle(
           fontSize: 28,
           color: Colors.grey
     );
-    final enabled = (int levelNumber){
+    enabled(int levelNumber){
         return playerProgress.highestLevelReached >= levelNumber - 1;
-    };
+    }
 
     return Scaffold(
       // backgroundColor: palette.backgroundLevelSelection,

@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +74,8 @@ class FlowerArtificialDragL2 extends GameDecoration
 }
 
 late CircleComponent circleComponent;
-late final paint = Paint();
+@override
+  late final paint = Paint();
 late double radius = 6;
 late final circlePosition = Vector2(spriteSize.x-5,0);
 late SpriteAnimationComponent spriteAnimComponent;
@@ -93,7 +93,7 @@ Future<void> onLoad()  async{
 
   void _addsText() {
     _textPaint = TextPaint(
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 4,
         color: Colors.white,
       ),
@@ -150,7 +150,7 @@ Future<void> onLoad()  async{
       totalpoints += points;
 
       if(pointsGained){
-        hintText = "Bravo!!! \n +${points} points";
+        hintText = "Bravo!!! \n +$points points";
       //  await helpers.openCustomDialog(
       //     context, 
       //     "Bravo!!!", 
@@ -160,7 +160,7 @@ Future<void> onLoad()  async{
       }
       else{
         hintText = "Oopss!!! \n";
-        hintText += isFake? "-${points} (Use natural flowers)" : "-${points} (Place on soil)";
+        hintText += isFake? "-$points (Use natural flowers)" : "-$points (Place on soil)";
         // await helpers.openCustomDialog(
         //   context, 
         //   "Oopss!!!", 

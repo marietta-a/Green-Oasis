@@ -2,9 +2,6 @@
 
 
 import 'package:bonfire/bonfire.dart';
-import 'package:bonfire/decoration/decoration.dart';
-import 'package:bonfire/input/gestures/tap_gesture.dart';
-import 'package:bonfire/mixins/movement.dart';
 import 'package:flutter/material.dart';
 import 'package:green_oasis/components/core.dart';
 import 'package:green_oasis/components/design_selectors.dart';
@@ -19,7 +16,7 @@ class Paper extends GameDecoration{
 
 class PaperTap extends GameDecoration
     with TapGesture, Movement{
-  PaperTap({required Vector2 position, required super.size, required this.designNotifier}):super(position: position);
+  PaperTap({required super.position, required super.size, required this.designNotifier});
   
   late GameDecoration spriteComponent = GameDecoration(position: position, size: size);
   final DesignModel designNotifier;
