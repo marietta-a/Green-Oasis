@@ -5,7 +5,7 @@ import 'package:flame/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 
-
+const double tile = 16.0;
 class Helpers{
   const Helpers();
   static String PlayerName = "Player";
@@ -14,6 +14,8 @@ class Helpers{
   // house helpers
   Vector2 get housePosition => Vector2(screenSize.x/4, 0); 
   Vector2 get houseSize => Vector2.all(400);
+  double get tileSize => tile;
+  Vector2 get worldInitPosition => Vector2(tile*(tile/2.1), (tile * tile)/2.1);
 
 
   Vector2 get itemSize => Vector2.all(100);

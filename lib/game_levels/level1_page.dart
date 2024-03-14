@@ -10,7 +10,7 @@ import 'package:green_oasis/game_internals/level_state.dart';
 import 'package:green_oasis/game_internals/score.dart';
 import 'package:green_oasis/level_selection/levels.dart';
 import 'package:green_oasis/pages/drag/conservation_drag.dart';
-import 'package:green_oasis/pages/drag/drag_gesture_page.dart';
+import 'package:green_oasis/pages/drag/drag_gesture_page1.dart';
 import 'package:green_oasis/player_progress/player_progress.dart';
 import 'package:green_oasis/style/palette.dart';
 import 'package:logging/logging.dart';
@@ -102,7 +102,7 @@ class _Level1Page extends State<Level1Page>{
                           minHeight: constraints.minHeight,
                           minWidth: constraints.maxWidth
                         ),
-                        child:  DragGesturePage(designNotifier: designNotifier,),
+                        child:  DragGesturePage1(designNotifier: designNotifier,),
                       );
                     },
                   );

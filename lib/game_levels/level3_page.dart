@@ -10,7 +10,7 @@ import 'package:green_oasis/game_internals/level_state.dart';
 import 'package:green_oasis/game_internals/score.dart';
 import 'package:green_oasis/level_selection/levels.dart';
 import 'package:green_oasis/pages/drag/conservation_drag.dart';
-import 'package:green_oasis/pages/drag/drag_gesture_page2.dart';
+import 'package:green_oasis/pages/drag/drag_gesture_page3.dart';
 import 'package:green_oasis/player_progress/player_progress.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
@@ -103,7 +103,7 @@ class _Level3Page extends State<Level3Page>{
                           minHeight: constraints.minHeight,
                           minWidth: constraints.maxWidth
                         ),
-                        child:  DragGesturePage2(designNotifier: designNotifier,),
+                        child:  DragGesturePage3(designNotifier: designNotifier,),
                       );
                     },
                   );
@@ -136,35 +136,6 @@ class _Level3Page extends State<Level3Page>{
             },
           ),
           ),
-          // bottomSheet: ListenableBuilder(
-          //   listenable: designNotifier,
-          //   builder: (context, widget){
-          //     return AnimatedContainer(
-          //       // width: selected ? 200.0 : 100.0,
-          //       // height: selected ? 100.0 : 200.0,
-          //       color: designNotifier.pointsGained ? Colors.green : Colors.red,
-          //       duration: const Duration(seconds: 2),
-          //       curve: Curves.fastOutSlowIn,
-          //       child:  Container(
-          //         decoration:  BoxDecoration(
-          //           borderRadius: BorderRadius.circular(5),
-          //           color: Colors.white,
-          //           boxShadow: const [
-          //               BoxShadow(color: Color.fromARGB(255, 2, 91, 136), spreadRadius: 3),
-          //           ],
-          //         ),
-          //         child: Text(
-          //           "Score: ${designNotifier.totalpoints}",
-          //           style: const TextStyle(
-          //             backgroundColor: Color.fromARGB(255, 2, 91, 136),
-          //             color: Colors.white,
-          //             fontSize: 24,
-          //           ),
-          //         ),
-          //       ),
-          //     );
-          //   },
-          // ) ,
         )
       )
    );
