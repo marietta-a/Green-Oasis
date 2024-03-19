@@ -23,30 +23,34 @@ class Paper1Tap extends GameDecoration
   
   @override
   bool handlerPointerUp(PointerUpEvent event) {
-    final tapEvent = GestureEvent.fromPointerEvent(
-      event,
-      screenToWorld: gameRef.screenToWorld,
-    );
-    print(event.position);
-    if(contains(spriteComponent) && isWithinRange(tapEvent.worldPosition)){
+    
+    gameRef.screenToWorld(position);
+
+    if(contains(spriteComponent) && isWithinRange(event)){
       remove(spriteComponent);
       designNotifier.setPoints(100);
     }
     return super.handlerPointerUp(event);
   }
-  isWithinRange( Vector2 pointerPos){
+  isWithinRange( PointerUpEvent e){
+    final tapEvent = GestureEvent.fromPointerEvent(
+      e,
+      screenToWorld: gameRef.screenToWorld,
+    );
       final xx = position.x + size.x;
       final yy = position.y + size.y;
-      final isValidX = position.x <= pointerPos.x && xx >= pointerPos.x;
-      final isValidY = position.y <= pointerPos.y && yy >= pointerPos.y;
-      var screenSize = MediaQuery.of(context).size;
-      var x1 = helpers.worldInitPosition.x + gameRef.worldsize.x;
-      print(screenSize);
-      print(x1);
-      print(gameRef.worldsize);
-      print(helpers.worldInitPosition);
-      print(pointerPos);
-      print("xx: $xx yy: $yy");
+      final globPosition = (e.position / gameRef.camera.zoom);
+      final worldX = tapEvent.worldPosition.x.round() + gameRef.camera.position.x.round();
+      final worldY = tapEvent.worldPosition.y.round() + gameRef.camera.position.y.round();
+      final localX = (globPosition.dx.round() - worldX.round()).round();
+      final localY = (globPosition.dy.round() - worldY.round()).round();
+      final isValidX = position.x.round() <= localX && xx >= localX;
+      final isValidY = position.y.round() <= localY && yy >= localY;
+      print(localX);
+      print(localY);
+      print(position);
+      print(globPosition);
+      print(tapEvent.worldPosition);
       print("____________");
       return  isValidY && isValidX;
   }
